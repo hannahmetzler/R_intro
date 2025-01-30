@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.550">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -34,7 +34,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -80,14 +80,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#setting-up-git-github" id="toc-setting-up-git-github" class="nav-link active" data-scroll-target="#setting-up-git-github"><span class="header-section-number">1</span> Setting up Git &amp; Github</a>
+  <li><a href="#if-you-run-into-problems-with-the-steps-below" id="toc-if-you-run-into-problems-with-the-steps-below" class="nav-link active" data-scroll-target="#if-you-run-into-problems-with-the-steps-below"><span class="header-section-number">1</span> If you run into problems with the steps below:</a></li>
+  <li><a href="#get-a-github-account" id="toc-get-a-github-account" class="nav-link" data-scroll-target="#get-a-github-account"><span class="header-section-number">2</span> Get a GitHub account</a></li>
+  <li><a href="#check-if-git-is-already-installed" id="toc-check-if-git-is-already-installed" class="nav-link" data-scroll-target="#check-if-git-is-already-installed"><span class="header-section-number">3</span> Check if Git is already installed</a></li>
+  <li><a href="#download-and-install-the-latest-version-of-git" id="toc-download-and-install-the-latest-version-of-git" class="nav-link" data-scroll-target="#download-and-install-the-latest-version-of-git"><span class="header-section-number">4</span> Download and install the latest version of Git</a></li>
+  <li><a href="#configure-git-on-your-computer" id="toc-configure-git-on-your-computer" class="nav-link" data-scroll-target="#configure-git-on-your-computer"><span class="header-section-number">5</span> Configure Git on your computer</a></li>
+  <li><a href="#activate-version-control-with-git-in-rstudio" id="toc-activate-version-control-with-git-in-rstudio" class="nav-link" data-scroll-target="#activate-version-control-with-git-in-rstudio"><span class="header-section-number">6</span> Activate Version Control with Git in Rstudio</a></li>
+  <li><a href="#connect-git-on-your-pc-with-your-github-account" id="toc-connect-git-on-your-pc-with-your-github-account" class="nav-link" data-scroll-target="#connect-git-on-your-pc-with-your-github-account"><span class="header-section-number">7</span> Connect Git on your PC with your GitHub account</a>
   <ul class="collapse">
-  <li><a href="#get-a-github-account" id="toc-get-a-github-account" class="nav-link" data-scroll-target="#get-a-github-account"><span class="header-section-number">1.1</span> Get a GitHub account</a></li>
-  <li><a href="#check-if-git-is-already-installed" id="toc-check-if-git-is-already-installed" class="nav-link" data-scroll-target="#check-if-git-is-already-installed"><span class="header-section-number">1.2</span> Check if Git is already installed</a></li>
-  <li><a href="#download-and-install-the-latest-version-of-git" id="toc-download-and-install-the-latest-version-of-git" class="nav-link" data-scroll-target="#download-and-install-the-latest-version-of-git"><span class="header-section-number">1.3</span> Download and install the latest version of Git</a></li>
-  <li><a href="#configure-git-on-your-computer" id="toc-configure-git-on-your-computer" class="nav-link" data-scroll-target="#configure-git-on-your-computer"><span class="header-section-number">1.4</span> Configure Git on your computer</a></li>
-  <li><a href="#activate-version-control-with-git-in-rstudio" id="toc-activate-version-control-with-git-in-rstudio" class="nav-link" data-scroll-target="#activate-version-control-with-git-in-rstudio"><span class="header-section-number">1.5</span> Activate Version Control with Git in Rstudio</a></li>
-  <li><a href="#connect-git-on-your-pc-with-your-github-account" id="toc-connect-git-on-your-pc-with-your-github-account" class="nav-link" data-scroll-target="#connect-git-on-your-pc-with-your-github-account"><span class="header-section-number">1.6</span> Connect Git on your PC with your GitHub account</a></li>
+  <li><a href="#create-an-ssh-key" id="toc-create-an-ssh-key" class="nav-link" data-scroll-target="#create-an-ssh-key"><span class="header-section-number">7.1</span> Create an SSH key</a></li>
+  <li><a href="#get-the-ssh-key-into-github" id="toc-get-the-ssh-key-into-github" class="nav-link" data-scroll-target="#get-the-ssh-key-into-github"><span class="header-section-number">7.2</span> Get the SSH key into Github</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -97,6 +99,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Preparation for Lesson 2</h1>
+<p class="subtitle lead">Setting up Git &amp; Github</p>
 </div>
 
 
@@ -119,14 +122,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="setting-up-git-github" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="setting-up-git-github"><span class="header-section-number">1</span> Setting up Git &amp; Github</h2>
-<p>More details if you need help <a href="https://docs.github.com/en/get-started/getting-started-with-git/set-up-git">here</a> on GitHub.</p>
-<section id="get-a-github-account" class="level3" data-number="1.1">
-<h3 data-number="1.1" class="anchored" data-anchor-id="get-a-github-account"><span class="header-section-number">1.1</span> Get a <a href="https://github.com/">GitHub</a> account</h3>
+<section id="if-you-run-into-problems-with-the-steps-below" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="if-you-run-into-problems-with-the-steps-below"><span class="header-section-number">1</span> If you run into problems with the steps below:</h2>
+<ul>
+<li>More details if you need help <a href="https://docs.github.com/en/get-started/getting-started-with-git/set-up-git">here</a> on GitHub.</li>
+<li>Ask <a href="https://chat.openai.com/">ChatGPT</a> (or another LLM). Copy in the code and the error message you get, and explain your problem. It will almost certainly give you tips that resolve the issue.</li>
+</ul>
 </section>
-<section id="check-if-git-is-already-installed" class="level3" data-number="1.2">
-<h3 data-number="1.2" class="anchored" data-anchor-id="check-if-git-is-already-installed"><span class="header-section-number">1.2</span> Check if Git is already installed</h3>
+<section id="get-a-github-account" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="get-a-github-account"><span class="header-section-number">2</span> Get a <a href="https://github.com/">GitHub</a> account</h2>
+</section>
+<section id="check-if-git-is-already-installed" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="check-if-git-is-already-installed"><span class="header-section-number">3</span> Check if Git is already installed</h2>
 <p>In the bottom left pane in Rstudio, Click on <code>Terminal</code> next to <code>Console</code> (or open the Terminal/Console/Shell outside of Rstudio).</p>
 <ul>
 <li>type <code>git –-version</code></li>
@@ -143,11 +150,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="download-and-install-the-latest-version-of-git" class="level3" data-number="1.3">
-<h3 data-number="1.3" class="anchored" data-anchor-id="download-and-install-the-latest-version-of-git"><span class="header-section-number">1.3</span> Download and install the latest version of <a href="https://git-scm.com/downloads">Git</a></h3>
+<section id="download-and-install-the-latest-version-of-git" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="download-and-install-the-latest-version-of-git"><span class="header-section-number">4</span> Download and install the latest version of <a href="https://git-scm.com/downloads">Git</a></h2>
 </section>
-<section id="configure-git-on-your-computer" class="level3" data-number="1.4">
-<h3 data-number="1.4" class="anchored" data-anchor-id="configure-git-on-your-computer"><span class="header-section-number">1.4</span> Configure Git on your computer</h3>
+<section id="configure-git-on-your-computer" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="configure-git-on-your-computer"><span class="header-section-number">5</span> Configure Git on your computer</h2>
 <p>Type this in your Terminal, and make sure to leave white spaces after git and config. Bash (the coding language of the Terminal) <strong>does</strong> interpret white spaces. (R does not.).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.name <span class="st">"Your name here"</span></span>
@@ -166,8 +173,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="activate-version-control-with-git-in-rstudio" class="level3" data-number="1.5">
-<h3 data-number="1.5" class="anchored" data-anchor-id="activate-version-control-with-git-in-rstudio"><span class="header-section-number">1.5</span> Activate Version Control with Git in Rstudio</h3>
+<section id="activate-version-control-with-git-in-rstudio" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="activate-version-control-with-git-in-rstudio"><span class="header-section-number">6</span> Activate Version Control with Git in Rstudio</h2>
 <ul>
 <li>Under <code>Tools</code> -&gt; <code>Global Options</code> select Git/SVN</li>
 <li>Make sure the box <code>Enable version control</code> is checked.</li>
@@ -195,8 +202,8 @@ We will keep coming back to this window.
 </div>
 </div>
 </section>
-<section id="connect-git-on-your-pc-with-your-github-account" class="level3" data-number="1.6">
-<h3 data-number="1.6" class="anchored" data-anchor-id="connect-git-on-your-pc-with-your-github-account"><span class="header-section-number">1.6</span> Connect Git on your PC with your GitHub account</h3>
+<section id="connect-git-on-your-pc-with-your-github-account" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="connect-git-on-your-pc-with-your-github-account"><span class="header-section-number">7</span> Connect Git on your PC with your GitHub account</h2>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -210,8 +217,8 @@ The idea
 <p>We create an SSH key (a pass phrase), and give it to Rstudio and GitHub, so they recognize each other.</p>
 </div>
 </div>
-<section id="create-an-ssh-key" class="level4" data-number="1.6.1">
-<h4 data-number="1.6.1" class="anchored" data-anchor-id="create-an-ssh-key"><span class="header-section-number">1.6.1</span> Create an SSH key</h4>
+<section id="create-an-ssh-key" class="level3" data-number="7.1">
+<h3 data-number="7.1" class="anchored" data-anchor-id="create-an-ssh-key"><span class="header-section-number">7.1</span> Create an SSH key</h3>
 <ul>
 <li>In the <code>Options</code> window (above), click <code>Create SSH Key...</code></li>
 <li>If this does not work, enter this in the Terminal:</li>
@@ -229,8 +236,8 @@ The idea
 <li>In the <code>Options</code> window, there should now be a path for SSH RSA key. (Close once and reopen otherwise)</li>
 </ul>
 </section>
-<section id="get-the-ssh-key-into-github" class="level4" data-number="1.6.2">
-<h4 data-number="1.6.2" class="anchored" data-anchor-id="get-the-ssh-key-into-github"><span class="header-section-number">1.6.2</span> Get the SSH key into Github</h4>
+<section id="get-the-ssh-key-into-github" class="level3" data-number="7.2">
+<h3 data-number="7.2" class="anchored" data-anchor-id="get-the-ssh-key-into-github"><span class="header-section-number">7.2</span> Get the SSH key into Github</h3>
 <ul>
 <li>Click <code>View public key</code> in the <code>Options</code> window.</li>
 </ul>
@@ -277,7 +284,6 @@ Done!
 </div>
 </section>
 </section>
-</section>
 
 </main>
 <!-- /main column -->
@@ -316,18 +322,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -359,7 +354,47 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -394,7 +429,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');

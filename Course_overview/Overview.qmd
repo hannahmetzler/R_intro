@@ -4,7 +4,7 @@ subtitle: "Course overview"
 author: "Hannah Metzler"
 date: "January 31, 2025"
 format: revealjs
-editor: visual
+editor: source
 ---
 
 # Who am I?

@@ -1,6 +1,22 @@
-# To do before the first class:
+---
+title: "Preparation for Lesson 1"
+subtitle: "To do before the first class"
+author: "Hannah Metzler"
+format: 
+  html:
+    theme: flatly
+    toc: true # generate a table of content
+    number-sections: true
+    number-depth: 3
+    df-print: kable
+editor: source
+cache: true
+execute: 
+  warning: false
+echo: true
+---
 
-### 1. Download and install R
+## Download and install R
 
 -   **R** is the data analysis program we will use: <https://cran.rstudio.com/>
 
@@ -10,7 +26,7 @@
     -   For macOS 11 & higher: click on [R-4.4.2-arm64.pkg](https://cran.rstudio.com/bin/macosx/big-sur-arm64/base/R-4.4.2-arm64.pkg), for earlier versions: [R-4.4.2-x86_64.pkg](https://cran.rstudio.com/bin/macosx/big-sur-x86_64/base/R-4.4.2-x86_64.pkg), then install
     -   Ubuntu: follow the provided instructions (copy each code line into your Bash Terminal (=Console) & press enter, enter your Laptop log in password when prompted. 
 
-### 2. Download and install Rstudio
+## Download and install Rstudio
 
 -   Rstudio is the visual interface: <https://posit.co/download/rstudio-desktop/>
 
@@ -24,7 +40,7 @@
 
 -   If you have trouble installing, write to me at metzler[at]csh.ac.at latest before January 30 noon. 
 
-### 3. Configure Rstudio
+## Configure Rstudio
 
 -   Under the **Tools** menu, go to **Global Options...** and uncheck the box that says **Restore .RData into workspace at startup**, and set this to **Never**.
 

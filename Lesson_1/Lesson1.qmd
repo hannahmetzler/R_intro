@@ -1,13 +1,14 @@
 ---
 title: "Lesson 1: Getting Started"
 author: "Hannah Metzler"
-date: "March 6 2024"
+date: "Jan 30 2025"
 format: 
   html:
+    theme: flatly
     toc: true # generate a table of content
     number-sections: true
     df-print: kable
-editor: visual
+editor: source
 cache: true
 execute: 
   warning: false
@@ -30,12 +31,14 @@ knitr::include_graphics("images/Rstudio_interface.png")
 ```
 
 ::: aside
--   Left top: Source pane: Writing your scripts (with code & text)
--   Left bottom: Console: executing code directly
--   Right pane: different information about your code, outputs of your code, help...
+-   Left top = Source pane: Writing your scripts (with code & text)
+-   Left bottom = Console: executing code directly
+-   Right pane = information about your code, outputs of your code, help...
 :::
 
 ## Console commands
+
+- Let's start working in the Console. 
 
 ```{r}
 1 + 1
@@ -132,6 +135,8 @@ cat(long_string) # cat() prints the string
 
 ### The environment
 
+![](images/environment.png)
+
 -   When you assign something to an object, R creates an entry in the global environment.
 -   Saved until you close Rstudio
 -   Check the upper right pane
@@ -178,10 +183,22 @@ cat("The hyphen and the dash argued about who was faster to get there.",
 function_name(argument1, argument2 = "value")
 ```
 
--   Arguments can be named: (argument1 = 10)
--   You can skip the names if you put the arguments in the order defined in the function.
+- Arguments can be named: (argument1 = 10)
+- You can skip the names if you put the arguments in the order defined in the function.
+- Example with an invented function that assigns people (values) to seats (arguments): Maria gets seat 1, Barbara seat 2 and Claudia seat 3. 
+
+With names the order does not matter: 
+```{r, eval = FALSE}
+Assign_a_seat(seat3 = Claudia, seat1 = Maria, seat2 = Barbara)
+```
+
+You can leave out the names if you put them in the right order. 
+```{r, eval = FALSE}
+Assign_a_seat(Maria, Barbara, Claudia)
+```
+
 -   Check the order in the help pane by typing `?sd` in the console.
--   You can skip arguments that have a default value specified (`FALSE` for `sd`)
+-   You can skip arguments that have a default value specified (`FALSE` for `sd`), if the default is what you want. 
 
 ::: callout-caution
 ## Exercise
@@ -190,11 +207,12 @@ The function `rnorm()` generates random numbers from the standard normal distrib
 
 -   Check its syntax in the help page.
     -   what is n?
-    -   what is the default mean and sd?
+    -   what is the default mean and sd of the distribution?
 -   Try executing the function without any arguments. Why do you get an error?
+
 :::
 
-If you want 10 random numbers from a normal distribution with mean of 0 and standard deviation, you can just use the defaults.
+If you want 10 random numbers from a normal distribution with a mean of 0 and standard deviation of 1, you can just use the defaults.
 
 ```{r rnorm-10}
 rnorm(10)
@@ -206,19 +224,19 @@ If you want 10 numbers from a normal distribution with a mean of 100 (we do not 
 rnorm(10, 100)
 ```
 
-This would be an equivalent but less efficient way of calling the function:
+This gives you the same result, it's just less efficient for writing: 
 
 ```{r rnorm-n-10-m-100}
 rnorm(n = 10, mean = 100)
 ```
 
-We need names if we change the default for an argument coming later in the list:
+We need names if we change the third argument, without writing out the second: 
 
 ```{r rnorm-10-sd-100}
 rnorm(10, sd = 100)
 ```
 
-Functions with a list of options after an argument: default value is the first option. The usage entry for the `power.t.test()` function looks like this:
+Functions with a list of options after an argument: the default value is the first option. The function `power.t.test()` helps you make calculations around statistical power of t-tests. Its help entry looks like this:
 
 ```{r, eval = FALSE}
 power.t.test(n = NULL, delta = NULL, sd = 1, sig.level = 0.05,
@@ -227,6 +245,14 @@ power.t.test(n = NULL, delta = NULL, sd = 1, sig.level = 0.05,
              alternative = c("two.sided", "one.sided"),
              strict = FALSE, tol = .Machine$double.eps^0.25)
 ```
+
+What about the `NULL`s? More info from the help entry: 
+
+- Two of the arguments with `NULL` need to be specified (no defaults). The third is calculated. 
+  - n: number of observations per group
+  - delta: true difference in means
+  - power: power of test
+  
 
 ::: callout-caution
 ## Exercise
@@ -238,38 +264,38 @@ power.t.test(n = NULL, delta = NULL, sd = 1, sig.level = 0.05,
     2.  power.t.test(n = 100)
     3.  power.t.test(delta = 0.5, n = 100)
     4.  power.t.test(100, 0.5, sig.level = 1, sd = 0.05)
+    
 :::
 
 ## Add-on packages
 
--   Packages of code somebody has written and shared
+-   Package: Collection of code somebody has written and shared
     -   Examples: data visualisation, machine learning, web scraping, neuroimaging...
 -   Main repository: CRAN, the Comprehensive R Archive Network
 
 ### Installing and loading
 
--   Installing: Only once (like an app)
--   From the console (not a script)
+1.  Installing: Only once (like an app). Always from the console (not from a script).
 
 ```{r, eval=FALSE}
 # type this in the console pane
 install.packages("beepr")
 ```
 
--   Loading a package (like opening an app)
+2. Loading a package (like opening an app)
 
 ```{r}
 library(beepr)
 ```
 
-Now you can run the function `beepr::beep()`.
+Now you can run the function `beep()` from the package. Turn on your sound before you do. 
 
 ```{r beepr-demo, eval = FALSE}
 beepr::beep() # default sound
 beepr::beep(sound = "mario") # change the sound argument
 ```
 
-Use `package::function()` to indicate which package a function comes from.
+For clean code: Use `package::function()` to indicate which package a function comes from.
 
 -   `readr::read_csv()` refers to
     -   the function `read_csv()`
@@ -348,28 +374,37 @@ help("rnorm", package="stats")
 
 Package is not loaded, or you don't know which package the function belongs to: Use `??function_name`.
 
-### Googling & ChatGPT
+### Googling
 
--   Using jargon like "concatenate vectors in R" helps
--   You'll get more useful results with practice
--   Use R, Rstats, or the name of the package.
--   ChatGPT is quite a good programmer
+- Using jargon like "concatenate vectors in R" helps
+- You'll get more useful results with practice
+- Use R, Rstats, or the name of the package.
+- www.rseek.org only shows R-specific results
+
+### LLM models (ChatGPT, Claude, Gemini)
+
+- LLM models are really good programmers. 
+- They were trained on lot's of code from the internet.
+- Some can even execute code (ChatGPT, Claude).
+- It helps to know the basics of coding to understand how to use their output. 
+- But then, these models make you as good as an average data scientist.
+- Checkout https://hannahmetzler.eu/ai_skills for tips about using LLMs.
 
 ### Vignettes
 
--   Explain how to use a package.
+-   They explain how to use a package.
 -   Many packages have vignettes.
 
 ```{r, eval=FALSE}
 library(tidyverse)
-# opens a list of available vignettes
+# open a list of available vignettes for the plotting package ggplot2: 
 vignette(package = "ggplot2")
 
-# opens a specific vignette in the Help pane
-vignette("ggplot2-specs", package = "ggplot2")
+# open a specific vignette in the Help pane
+vignette("ggplot2", package = "ggplot2")
 ```
 
-### Asking for help
+### Asking for help of human experts
 
 -   If all else fails: Forums like Statsexchange
     -   Copy & paste your code and errors to be precise
@@ -378,11 +413,12 @@ vignette("ggplot2-specs", package = "ggplot2")
 
 ### What for?
 
--   Back up for your code - never loose your work.
--   Version control
--   Share code
--   Collaborate on coding projects
--   For all files – not just code!
+- Back up for your code - never loose your work.
+- Version control
+- Share code (for students, publications...)
+- Collaborate on coding projects
+- Use code from multiple computers
+- For all files – not just code!
 
 ### How does it work?
 

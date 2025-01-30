@@ -1,25 +1,29 @@
 ---
 title: "Preparation for Lesson 2"
+subtitle: "Setting up Git & Github"
 author: "Hannah Metzler"
 format: 
   html:
+    theme: flatly
     toc: true # generate a table of content
     number-sections: true
+    number-depth: 3
     df-print: kable
-editor: visual
+editor: source
 cache: true
 execute: 
   warning: false
 echo: true
 ---
 
-## Setting up Git & Github
+## If you run into problems with the steps below: 
 
-More details if you need help [here](https://docs.github.com/en/get-started/getting-started-with-git/set-up-git) on GitHub.
+- More details if you need help [here](https://docs.github.com/en/get-started/getting-started-with-git/set-up-git) on GitHub.
+- Ask [ChatGPT](https://chat.openai.com/) (or another LLM). Copy in the code and the error message you get, and explain your problem. It will almost certainly give you tips that resolve the issue. 
 
-### Get a [GitHub](https://github.com/) account
+## Get a [GitHub](https://github.com/) account
 
-### Check if Git is already installed
+## Check if Git is already installed
 
 In the bottom left pane in Rstudio, Click on `Terminal` next to `Console` (or open the Terminal/Console/Shell outside of Rstudio).
 
@@ -31,9 +35,9 @@ In the bottom left pane in Rstudio, Click on `Terminal` next to `Console` (or op
 knitr::include_graphics('images/Git_installed.png')
 ```
 
-### Download and install the latest version of [Git](https://git-scm.com/downloads)
+## Download and install the latest version of [Git](https://git-scm.com/downloads)
 
-### Configure Git on your computer
+## Configure Git on your computer
 
 Type this in your Terminal, and make sure to leave white spaces after git and config. Bash (the coding language of the Terminal) **does** interpret white spaces. (R does not.).
 
@@ -51,7 +55,7 @@ After configuration, it should look like this:
 knitr::include_graphics('images/git_config.png')
 ```
 
-### Activate Version Control with Git in Rstudio
+## Activate Version Control with Git in Rstudio
 
 -   Under `Tools` -\> `Global Options` select Git/SVN
 -   Make sure the box `Enable version control` is checked.
@@ -66,7 +70,7 @@ knitr::include_graphics('images/R_version_control.png')
 ```
 :::
 
-### Connect Git on your PC with your GitHub account
+## Connect Git on your PC with your GitHub account
 
 ::: callout-tip
 ## The idea
@@ -74,7 +78,7 @@ knitr::include_graphics('images/R_version_control.png')
 We create an SSH key (a pass phrase), and give it to Rstudio and GitHub, so they recognize each other.
 :::
 
-#### Create an SSH key
+### Create an SSH key
 
 -   In the `Options` window (above), click `Create SSH Key...`
 -   If this does not work, enter this in the Terminal:
@@ -89,7 +93,7 @@ $ ssh-keygen -t ed25519 -C "your_email@example.com"
     -   `Enter same passphrase again:`\[Press enter\]
 -   In the `Options` window, there should now be a path for SSH RSA key. (Close once and reopen otherwise)
 
-#### Get the SSH key into Github
+### Get the SSH key into Github
 
 -   Click `View public key` in the `Options` window.
 
