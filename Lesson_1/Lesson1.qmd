@@ -379,7 +379,7 @@ Package is not loaded, or you don't know which package the function belongs to: 
 - Using jargon like "concatenate vectors in R" helps
 - You'll get more useful results with practice
 - Use R, Rstats, or the name of the package.
-- www.rseek.org only shows R-specific results
+- <www.rseek.org> only shows R-specific results
 
 ### LLM models (ChatGPT, Claude, Gemini)
 
