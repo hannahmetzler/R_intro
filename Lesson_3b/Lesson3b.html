@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Hannah Metzler">
-<meta name="dcterms.date" content="2024-03-27">
+<meta name="dcterms.date" content="2025-02-20">
 
 <title>Lesson 3 extension: Data wrangling, t-tests and ANOVA</title>
 <style>
@@ -24,7 +24,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -35,7 +35,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -132,7 +132,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">March 27, 2024</p>
+      <p class="date">February 20, 2025</p>
     </div>
   </div>
   
@@ -140,7 +140,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header>
+
 
 <section id="project-for-extension-of-lesson-3-comparison-of-baby-names-in-austria-and-the-us" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="project-for-extension-of-lesson-3-comparison-of-baby-names-in-austria-and-the-us"><span class="header-section-number">1</span> Project for extension of lesson 3: Comparison of baby names in Austria and the US</h2>
@@ -159,19 +161,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>To read the Austrian data, try the function <code>csv()</code>.</li>
 <li>Add this after the lines that read in the data from the USA.</li>
 </ul>
-<div class="cell" data-hash="Lesson3b_cache/html/unnamed-chunk-2_d0d4c2de528e531de0269fff0d3a1a73">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>data_aut <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">'data/OGDEXT_VORNAMEN_1.csv'</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data_aut)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 1
-  `C-JAHR-0;C-WOHNBEZIRK-0;C-GESCHLECHT-0;F-VORNAME_NORMALISIERT;F-ANZAHL_LGEB`
-  &lt;chr&gt;                                                                        
-1 1984;101;1;Andreas;4                                                         
-2 1984;101;1;Bernd;1                                                           
-3 1984;101;1;Christian;2                                                       
-4 1984;101;1;Christoph;2                                                       
-5 1984;101;1;Clemens;1                                                         
-6 1984;101;1;Daniel;3                                                          </code></pre>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 100%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">C-JAHR-0;C-WOHNBEZIRK-0;C-GESCHLECHT-0;F-VORNAME_NORMALISIERT;F-ANZAHL_LGEB</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1984;101;1;Andreas;4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1984;101;1;Bernd;1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1984;101;1;Christian;2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1984;101;1;Christoph;2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1984;101;1;Clemens;1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1984;101;1;Daniel;3</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 <p>You can see that the data was not read in correctly. Why?</p>
@@ -181,31 +206,85 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Here, you can see that these data from Austria are indeed separated by a semicolon.</li>
 <li>If you check the help section for <code>?read_csv</code>, you see that you can use the function <code>read_csv2()</code> to read in CSV-files with the field separator <code>;</code>.</li>
 </ul>
-<div class="cell" data-hash="Lesson3b_cache/html/unnamed-chunk-3_3d59b14d2aa249717d9e7b8bf00848cd">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>data_aut <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv2</span>(<span class="st">'data/OGDEXT_VORNAMEN_1.csv'</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data_aut)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 5
-  `C-JAHR-0` `C-WOHNBEZIRK-0` `C-GESCHLECHT-0` `F-VORNAME_NORMALISIERT`
-       &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt;                   
-1       1984              101                1 Andreas                 
-2       1984              101                1 Bernd                   
-3       1984              101                1 Christian               
-4       1984              101                1 Christoph               
-5       1984              101                1 Clemens                 
-6       1984              101                1 Daniel                  
-# ℹ 1 more variable: `F-ANZAHL_LGEB` &lt;dbl&gt;</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data_aut <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv2</span>(<span class="st">'data/OGDEXT_VORNAMEN_1.csv'</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data_aut)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 19%">
+<col style="width: 19%">
+<col style="width: 30%">
+<col style="width: 18%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">C-JAHR-0</th>
+<th style="text-align: right;">C-WOHNBEZIRK-0</th>
+<th style="text-align: right;">C-GESCHLECHT-0</th>
+<th style="text-align: left;">F-VORNAME_NORMALISIERT</th>
+<th style="text-align: right;">F-ANZAHL_LGEB</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1984</td>
+<td style="text-align: right;">101</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Andreas</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1984</td>
+<td style="text-align: right;">101</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Bernd</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1984</td>
+<td style="text-align: right;">101</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Christian</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1984</td>
+<td style="text-align: right;">101</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Christoph</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1984</td>
+<td style="text-align: right;">101</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Clemens</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1984</td>
+<td style="text-align: right;">101</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Daniel</td>
+<td style="text-align: right;">3</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 </section>
 <section id="data-from-the-us" class="level3" data-number="2.2">
 <h3 data-number="2.2" class="anchored" data-anchor-id="data-from-the-us"><span class="header-section-number">2.2</span> Data from the US</h3>
 <p>Here, I load the baby names data set, a default package included in the library “babynames”. To run the code below, you first need to install the package, and then load it by adding <code>library(babynames)</code> in your section for loading packages. This dataset, as opposed to the smaller one we used in lesson 3, includes all given names in the US, not just the ones from our course participants. Assign the dataset to <code>data_usa</code>.</p>
-<div class="cell" data-hash="Lesson3b_cache/html/read in US babynames data_fe4abcf287ba2e828ab325acad9a814a">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load the dataset</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(babynames)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># assign it to data_usa</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>data_usa <span class="ot">=</span> babynames</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load the dataset</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(babynames)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># assign it to data_usa</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>data_usa <span class="ot">=</span> babynames</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -215,8 +294,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>You know <code>glimpse()</code> from lesson 3.</li>
 </ul>
-<div class="cell" data-hash="Lesson3b_cache/html/unnamed-chunk-4_090ca54396ee3d371e2d37c53fd89c7d">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(data_aut)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(data_aut)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 1,265,460
 Columns: 5
@@ -233,8 +312,8 @@ $ `F-ANZAHL_LGEB`          &lt;dbl&gt; 4, 1, 2, 2, 1, 3, 2, 1, 3, 1, 1, 1, 1, 1,
 <li>It also shows us that the column “Geschlecht” (sex) is not yet coded as a categorical variable.</li>
 </ul></li>
 </ul>
-<div class="cell" data-hash="Lesson3b_cache/html/unnamed-chunk-5_d7f1e1f1cd7fb19084b5c589540bd493">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data_aut)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data_aut)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    C-JAHR-0    C-WOHNBEZIRK-0 C-GESCHLECHT-0  F-VORNAME_NORMALISIERT
  Min.   :1984   Min.   :101    Min.   :1.000   Length:1265460        
@@ -255,14 +334,14 @@ $ `F-ANZAHL_LGEB`          &lt;dbl&gt; 4, 1, 2, 2, 1, 3, 2, 1, 3, 1, 1, 1, 1, 1,
 <ul>
 <li>The function <code>View()</code> opens the data in an extra window.</li>
 </ul>
-<div class="cell" data-hash="Lesson3b_cache/html/unnamed-chunk-6_38a03bb9036c297c003b2824b9915e60">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(data_aut)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(data_aut)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>The function <code>str()</code> shows you the structure of the data set.</li>
 </ul>
-<div class="cell" data-hash="Lesson3b_cache/html/unnamed-chunk-7_852878995302ae95694b7907a65b2fbf">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(data_aut) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(data_aut) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>spc_tbl_ [1,265,460 × 5] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
  $ C-JAHR-0              : num [1:1265460] 1984 1984 1984 1984 1984 ...
@@ -287,8 +366,8 @@ $ `F-ANZAHL_LGEB`          &lt;dbl&gt; 4, 1, 2, 2, 1, 3, 2, 1, 3, 1, 1, 1, 1, 1,
 <section id="renaming-columns" class="level3" data-number="4.1">
 <h3 data-number="4.1" class="anchored" data-anchor-id="renaming-columns"><span class="header-section-number">4.1</span> Renaming columns</h3>
 <p>Let’s use more useful column names for coding, and choose the same names as in the US baby names data. Check the names of the US data with <code>names()</code>:</p>
-<div class="cell" data-hash="Lesson3b_cache/html/unnamed-chunk-8_5e6b64bf8b2c25676d30a6a57ec8d6a6">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(data_usa)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(data_usa)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "year" "sex"  "name" "n"    "prop"</code></pre>
 </div>
@@ -298,32 +377,80 @@ $ `F-ANZAHL_LGEB`          &lt;dbl&gt; 4, 1, 2, 2, 1, 3, 2, 1, 3, 1, 1, 1, 1, 1,
 <li>You simply assign each old variable name (in quotation marks) to the new variable name.</li>
 <li>Add the following in your # CLEAN DATA #### section:</li>
 </ul>
-<div class="cell" data-hash="Lesson3b_cache/html/unnamed-chunk-9_bbaa2e888553d810a7bfbaa14cd975d9">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>data_aut_clean <span class="ot">&lt;-</span> data_aut <span class="sc">%&gt;%</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">year =</span> <span class="st">'C-JAHR-0'</span>, </span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">sex =</span> <span class="st">'C-GESCHLECHT-0'</span>,</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">living_district =</span> <span class="st">'C-WOHNBEZIRK-0'</span>,</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">name =</span> <span class="st">'F-VORNAME_NORMALISIERT'</span>,</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">n =</span> <span class="st">'F-ANZAHL_LGEB'</span>) </span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data_aut_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 5
-   year living_district   sex name          n
-  &lt;dbl&gt;           &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;
-1  1984             101     1 Andreas       4
-2  1984             101     1 Bernd         1
-3  1984             101     1 Christian     2
-4  1984             101     1 Christoph     2
-5  1984             101     1 Clemens       1
-6  1984             101     1 Daniel        3</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>data_aut_clean <span class="ot">&lt;-</span> data_aut <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">year =</span> <span class="st">'C-JAHR-0'</span>, </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">sex =</span> <span class="st">'C-GESCHLECHT-0'</span>,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">living_district =</span> <span class="st">'C-WOHNBEZIRK-0'</span>,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">name =</span> <span class="st">'F-VORNAME_NORMALISIERT'</span>,</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">n =</span> <span class="st">'F-ANZAHL_LGEB'</span>) </span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data_aut_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">year</th>
+<th style="text-align: right;">living_district</th>
+<th style="text-align: right;">sex</th>
+<th style="text-align: left;">name</th>
+<th style="text-align: right;">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1984</td>
+<td style="text-align: right;">101</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Andreas</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1984</td>
+<td style="text-align: right;">101</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Bernd</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1984</td>
+<td style="text-align: right;">101</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Christian</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1984</td>
+<td style="text-align: right;">101</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Christoph</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1984</td>
+<td style="text-align: right;">101</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Clemens</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1984</td>
+<td style="text-align: right;">101</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Daniel</td>
+<td style="text-align: right;">3</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 </section>
 <section id="selecting-rows" class="level3" data-number="4.2">
 <h3 data-number="4.2" class="anchored" data-anchor-id="selecting-rows"><span class="header-section-number">4.2</span> Selecting rows</h3>
 <p>If we compare the US and the Austrian data set, we can see that they cover different time spans.</p>
-<div class="cell" data-hash="Lesson3b_cache/html/unnamed-chunk-10_46dceac35ae7b55619cdcdb62de2b65c">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data_usa)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data_usa)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      year          sex                name                 n          
  Min.   :1880   Length:1924665     Length:1924665     Min.   :    5.0  
@@ -340,7 +467,7 @@ $ `F-ANZAHL_LGEB`          &lt;dbl&gt; 4, 1, 2, 2, 1, 3, 2, 1, 3, 1, 1, 1, 1, 1,
  3rd Qu.:2.288e-05  
  Max.   :8.155e-02  </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data_aut_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data_aut_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      year      living_district      sex            name          
  Min.   :1984   Min.   :101     Min.   :1.000   Length:1265460    
@@ -359,19 +486,19 @@ $ `F-ANZAHL_LGEB`          &lt;dbl&gt; 4, 1, 2, 2, 1, 3, 2, 1, 3, 1, 1, 1, 1, 1,
 </div>
 </div>
 <p>Let’s keep only years we have in both datasets. First, filtering the Austrian dataset:</p>
-<div class="cell" data-hash="Lesson3b_cache/html/unnamed-chunk-11_00dbecb02b8965f115fe701518c2823b">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>data_aut_clean <span class="ot">&lt;-</span> data_aut <span class="sc">%&gt;%</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">year =</span> <span class="st">'C-JAHR-0'</span>, </span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">sex =</span> <span class="st">'C-GESCHLECHT-0'</span>,</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">living_district =</span> <span class="st">'C-WOHNBEZIRK-0'</span>,</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">name =</span> <span class="st">'F-VORNAME_NORMALISIERT'</span>,</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">n =</span> <span class="st">'F-ANZAHL_LGEB'</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="co">#keep only years up to 2017</span></span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&lt;=</span> <span class="dv">2017</span>)</span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the new data frame</span></span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data_aut_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>data_aut_clean <span class="ot">&lt;-</span> data_aut <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">year =</span> <span class="st">'C-JAHR-0'</span>, </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">sex =</span> <span class="st">'C-GESCHLECHT-0'</span>,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">living_district =</span> <span class="st">'C-WOHNBEZIRK-0'</span>,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">name =</span> <span class="st">'F-VORNAME_NORMALISIERT'</span>,</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">n =</span> <span class="st">'F-ANZAHL_LGEB'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="co">#keep only years up to 2017</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&lt;=</span> <span class="dv">2017</span>)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the new data frame</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data_aut_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      year      living_district      sex            name          
  Min.   :1984   Min.   :101     Min.   :1.000   Length:1047654    
@@ -392,12 +519,12 @@ $ `F-ANZAHL_LGEB`          &lt;dbl&gt; 4, 1, 2, 2, 1, 3, 2, 1, 3, 1, 1, 1, 1, 1,
 <ul>
 <li>Next, filter out all years before 1984 from the USA data set:</li>
 </ul>
-<div class="cell" data-hash="Lesson3b_cache/html/unnamed-chunk-12_3129dbae43035607b686bb77da3e29cb">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>data_usa_clean <span class="ot">=</span> data_usa <span class="sc">%&gt;%</span> </span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">#keep only years from 1984 on</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;</span> <span class="dv">1983</span>)</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data_usa_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>data_usa_clean <span class="ot">=</span> data_usa <span class="sc">%&gt;%</span> </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">#keep only years from 1984 on</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;</span> <span class="dv">1983</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data_usa_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      year          sex                name                 n          
  Min.   :1984   Length:982833      Length:982833      Min.   :    5.0  
@@ -423,8 +550,8 @@ $ `F-ANZAHL_LGEB`          &lt;dbl&gt; 4, 1, 2, 2, 1, 3, 2, 1, 3, 1, 1, 1, 1, 1,
 <li>First, columns in both data frames need the same format.</li>
 <li>The US data had the following formats (see second column):</li>
 </ul>
-<div class="cell" data-hash="Lesson3b_cache/html/unnamed-chunk-13_adc8a807a0b8a2b3ee9672c9d40f7367">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(data_usa_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(data_usa_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 982,833
 Columns: 5
@@ -442,21 +569,21 @@ $ prop &lt;dbl&gt; 0.02804442, 0.02543416, 0.02150436, 0.01880703, 0.01435584, 0
 <li>The arguments for the <code>ifelse()</code> function start with a condition (rows where the column sex is equal to “1”), then specifies what happens if the condition is met (use the label “M”), and then lists what should happen otherwise/else (use the label “F”).</li>
 <li>Now, add this as a last line to where you created <code>data_aut_clean</code>:</li>
 </ul>
-<div class="cell" data-hash="Lesson3b_cache/html/unnamed-chunk-14_4796daf635754289336a9cca630193d4">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>data_aut_clean <span class="ot">&lt;-</span> data_aut <span class="sc">%&gt;%</span> </span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">year =</span> <span class="st">'C-JAHR-0'</span>, </span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">sex =</span> <span class="st">'C-GESCHLECHT-0'</span>,</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">living_district =</span> <span class="st">'C-WOHNBEZIRK-0'</span>,</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">name =</span> <span class="st">'F-VORNAME_NORMALISIERT'</span>,</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">n =</span> <span class="st">'F-ANZAHL_LGEB'</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">#keep only years up to 2017</span></span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&lt;=</span> <span class="dv">2017</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Recode the levels of sex from 1 and 2, to M and F</span></span>
-<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sex =</span> <span class="fu">ifelse</span>(sex <span class="sc">==</span> <span class="st">"1"</span>, <span class="st">"M"</span>, <span class="st">"F"</span>))</span>
-<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="co"># check if there is now F instead of 1, and M instead of M: </span></span>
-<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(data_aut_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>data_aut_clean <span class="ot">&lt;-</span> data_aut <span class="sc">%&gt;%</span> </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">year =</span> <span class="st">'C-JAHR-0'</span>, </span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">sex =</span> <span class="st">'C-GESCHLECHT-0'</span>,</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">living_district =</span> <span class="st">'C-WOHNBEZIRK-0'</span>,</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">name =</span> <span class="st">'F-VORNAME_NORMALISIERT'</span>,</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">n =</span> <span class="st">'F-ANZAHL_LGEB'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">#keep only years up to 2017</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&lt;=</span> <span class="dv">2017</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Recode the levels of sex from 1 and 2, to M and F</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sex =</span> <span class="fu">ifelse</span>(sex <span class="sc">==</span> <span class="st">"1"</span>, <span class="st">"M"</span>, <span class="st">"F"</span>))</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="co"># check if there is now F instead of 1, and M instead of M: </span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(data_aut_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 1,047,654
 Columns: 5
@@ -474,29 +601,29 @@ $ n               &lt;dbl&gt; 4, 1, 2, 2, 1, 3, 2, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1,
 <ul>
 <li>We use <code>rep()</code> to repeat “Austria” n times, and set <code>nrow()</code> to the number of rows of the Austrian data.</li>
 </ul>
-<div class="cell" data-hash="Lesson3b_cache/html/unnamed-chunk-15_1d5a9235a69fb9b17d4b662d03f45ac7">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>data_aut_clean <span class="ot">&lt;-</span> data_aut <span class="sc">%&gt;%</span> </span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">year =</span> <span class="st">'C-JAHR-0'</span>, </span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">sex =</span> <span class="st">'C-GESCHLECHT-0'</span>,</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">living_district =</span> <span class="st">'C-WOHNBEZIRK-0'</span>,</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">name =</span> <span class="st">'F-VORNAME_NORMALISIERT'</span>,</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">n =</span> <span class="st">'F-ANZAHL_LGEB'</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">#keep only years up to 2017</span></span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&lt;=</span> <span class="dv">2017</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Recode the levels of sex from 1 and 2, to M and F</span></span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sex =</span> <span class="fu">ifelse</span>(sex <span class="sc">==</span> <span class="st">"1"</span>, <span class="st">"M"</span>, <span class="st">"F"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">#create a country variable for Austria</span></span>
-<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">rep</span>(<span class="st">"Austria"</span>, <span class="at">n=</span><span class="fu">nrow</span>(data_aut)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>data_aut_clean <span class="ot">&lt;-</span> data_aut <span class="sc">%&gt;%</span> </span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">year =</span> <span class="st">'C-JAHR-0'</span>, </span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">sex =</span> <span class="st">'C-GESCHLECHT-0'</span>,</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">living_district =</span> <span class="st">'C-WOHNBEZIRK-0'</span>,</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">name =</span> <span class="st">'F-VORNAME_NORMALISIERT'</span>,</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">n =</span> <span class="st">'F-ANZAHL_LGEB'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">#keep only years up to 2017</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&lt;=</span> <span class="dv">2017</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Recode the levels of sex from 1 and 2, to M and F</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sex =</span> <span class="fu">ifelse</span>(sex <span class="sc">==</span> <span class="st">"1"</span>, <span class="st">"M"</span>, <span class="st">"F"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">#create a country variable for Austria</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">rep</span>(<span class="st">"Austria"</span>, <span class="at">n=</span><span class="fu">nrow</span>(data_aut)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now, let’s repeat this step for the USA data. Just add a line to where you started to clean the US data:</p>
-<div class="cell" data-hash="Lesson3b_cache/html/unnamed-chunk-16_7ba5ae1da17561446c4298ba3036e0c0">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>data_usa_clean <span class="ot">=</span> data_usa <span class="sc">%&gt;%</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">#keep only years from 1984 on</span></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;</span> <span class="dv">1983</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Create a country variable for the US</span></span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">rep</span>(<span class="st">"USA"</span>, <span class="at">n=</span><span class="fu">nrow</span>(babynames)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>data_usa_clean <span class="ot">=</span> data_usa <span class="sc">%&gt;%</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">#keep only years from 1984 on</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;</span> <span class="dv">1983</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Create a country variable for the US</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">rep</span>(<span class="st">"USA"</span>, <span class="at">n=</span><span class="fu">nrow</span>(babynames)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="grouping-data-and-summarising-statistics" class="level3" data-number="4.5">
@@ -515,24 +642,24 @@ $ n               &lt;dbl&gt; 4, 1, 2, 2, 1, 3, 2, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1,
 </ul></li>
 <li>Finally, we <code>ungroup()</code> the data again.</li>
 </ul>
-<div class="cell" data-hash="Lesson3b_cache/html/unnamed-chunk-17_a3ae9fb84dcb16915c5604df6bb3cf4e">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>data_aut_clean <span class="ot">&lt;-</span> data_aut <span class="sc">%&gt;%</span> </span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">year =</span> <span class="st">'C-JAHR-0'</span>, </span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">sex =</span> <span class="st">'C-GESCHLECHT-0'</span>,</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">living_district =</span> <span class="st">'C-WOHNBEZIRK-0'</span>,</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">name =</span> <span class="st">'F-VORNAME_NORMALISIERT'</span>,</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">n =</span> <span class="st">'F-ANZAHL_LGEB'</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">#keep only years up to 2017</span></span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&lt;=</span> <span class="dv">2017</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Recode the levels of sex from 1 and 2, to M and F</span></span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sex =</span> <span class="fu">ifelse</span>(sex <span class="sc">==</span> <span class="st">"1"</span>, <span class="st">"M"</span>, <span class="st">"F"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>  <span class="co">#create a country variable for Austria</span></span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">rep</span>(<span class="st">"Austria"</span>, <span class="at">n=</span><span class="fu">nrow</span>(data_aut))) <span class="sc">%&gt;%</span></span>
-<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>  <span class="co">#group by year, sex and name and calculate the new sum for each category</span></span>
-<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, sex, name, country) <span class="sc">%&gt;%</span> </span>
-<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span></span>
-<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>data_aut_clean <span class="ot">&lt;-</span> data_aut <span class="sc">%&gt;%</span> </span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">year =</span> <span class="st">'C-JAHR-0'</span>, </span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">sex =</span> <span class="st">'C-GESCHLECHT-0'</span>,</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">living_district =</span> <span class="st">'C-WOHNBEZIRK-0'</span>,</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">name =</span> <span class="st">'F-VORNAME_NORMALISIERT'</span>,</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">n =</span> <span class="st">'F-ANZAHL_LGEB'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">#keep only years up to 2017</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&lt;=</span> <span class="dv">2017</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Recode the levels of sex from 1 and 2, to M and F</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sex =</span> <span class="fu">ifelse</span>(sex <span class="sc">==</span> <span class="st">"1"</span>, <span class="st">"M"</span>, <span class="st">"F"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>  <span class="co">#create a country variable for Austria</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">rep</span>(<span class="st">"Austria"</span>, <span class="at">n=</span><span class="fu">nrow</span>(data_aut))) <span class="sc">%&gt;%</span></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>  <span class="co">#group by year, sex and name and calculate the new sum for each category</span></span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, sex, name, country) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Finally, we also want to calculate the proportion variable that exists in the US data set (propotion of babies getting each name).</p>
 <ul>
@@ -544,41 +671,103 @@ $ n               &lt;dbl&gt; 4, 1, 2, 2, 1, 3, 2, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1,
 <li>We again add country, also this does not create a group, to keep country variable.</li>
 </ul></li>
 </ul>
-<div class="cell" data-hash="Lesson3b_cache/html/unnamed-chunk-18_f65939194ca654c47df3425419ffa34b">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>data_aut_clean <span class="ot">&lt;-</span> data_aut <span class="sc">%&gt;%</span> </span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">year =</span> <span class="st">'C-JAHR-0'</span>, </span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">sex =</span> <span class="st">'C-GESCHLECHT-0'</span>,</span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">living_district =</span> <span class="st">'C-WOHNBEZIRK-0'</span>,</span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">name =</span> <span class="st">'F-VORNAME_NORMALISIERT'</span>,</span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">n =</span> <span class="st">'F-ANZAHL_LGEB'</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">#keep only years up to 2017</span></span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&lt;=</span> <span class="dv">2017</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Recode the levels of sex from 1 and 2, to M and F</span></span>
-<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sex =</span> <span class="fu">ifelse</span>(sex <span class="sc">==</span> <span class="st">"1"</span>, <span class="st">"M"</span>, <span class="st">"F"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>  <span class="co">#create a country variable for Austria</span></span>
-<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">rep</span>(<span class="st">"Austria"</span>, <span class="at">n=</span><span class="fu">nrow</span>(data_aut))) <span class="sc">%&gt;%</span></span>
-<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">#group by year, sex and name and calculate the new sum for each category</span></span>
-<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, sex, name, country) <span class="sc">%&gt;%</span> </span>
-<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span>  <span class="co"># see lesson 3 page for documentation</span></span>
-<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()<span class="sc">%&gt;%</span></span>
-<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a>  <span class="co">#calculate total number of birth per year, and then proportion for each name out of this total</span></span>
-<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, country) <span class="sc">%&gt;%</span> </span>
-<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n_total =</span> <span class="fu">sum</span>(n), </span>
-<span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a>         <span class="at">prop =</span> n<span class="sc">/</span>n_total) <span class="sc">%&gt;%</span> </span>
-<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb32-23"><a href="#cb32-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-24"><a href="#cb32-24" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data_aut_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 7
-   year sex   name     country     n n_total      prop
-  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;   &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;
-1  1984 F     Abigail  Austria     1   83856 0.0000119
-2  1984 F     Adele    Austria     2   83856 0.0000239
-3  1984 F     Adelheid Austria    23   83856 0.000274 
-4  1984 F     Adina    Austria     2   83856 0.0000239
-5  1984 F     Adriane  Austria     1   83856 0.0000119
-6  1984 F     Agata    Austria     1   83856 0.0000119</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>data_aut_clean <span class="ot">&lt;-</span> data_aut <span class="sc">%&gt;%</span> </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">year =</span> <span class="st">'C-JAHR-0'</span>, </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">sex =</span> <span class="st">'C-GESCHLECHT-0'</span>,</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">living_district =</span> <span class="st">'C-WOHNBEZIRK-0'</span>,</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">name =</span> <span class="st">'F-VORNAME_NORMALISIERT'</span>,</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">n =</span> <span class="st">'F-ANZAHL_LGEB'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">#keep only years up to 2017</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&lt;=</span> <span class="dv">2017</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Recode the levels of sex from 1 and 2, to M and F</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sex =</span> <span class="fu">ifelse</span>(sex <span class="sc">==</span> <span class="st">"1"</span>, <span class="st">"M"</span>, <span class="st">"F"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>  <span class="co">#create a country variable for Austria</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">rep</span>(<span class="st">"Austria"</span>, <span class="at">n=</span><span class="fu">nrow</span>(data_aut))) <span class="sc">%&gt;%</span></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">#group by year, sex and name and calculate the new sum for each category</span></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, sex, name, country) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span>  <span class="co"># see lesson 3 page for documentation</span></span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>  <span class="co">#calculate total number of birth per year, and then proportion for each name out of this total</span></span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, country) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n_total =</span> <span class="fu">sum</span>(n), </span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a>         <span class="at">prop =</span> n<span class="sc">/</span>n_total) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data_aut_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">year</th>
+<th style="text-align: left;">sex</th>
+<th style="text-align: left;">name</th>
+<th style="text-align: left;">country</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">n_total</th>
+<th style="text-align: right;">prop</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1984</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Abigail</td>
+<td style="text-align: left;">Austria</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">83856</td>
+<td style="text-align: right;">0.0000119</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1984</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Adele</td>
+<td style="text-align: left;">Austria</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">83856</td>
+<td style="text-align: right;">0.0000239</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1984</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Adelheid</td>
+<td style="text-align: left;">Austria</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">83856</td>
+<td style="text-align: right;">0.0002743</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1984</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Adina</td>
+<td style="text-align: left;">Austria</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">83856</td>
+<td style="text-align: right;">0.0000239</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1984</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Adriane</td>
+<td style="text-align: left;">Austria</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">83856</td>
+<td style="text-align: right;">0.0000119</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1984</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Agata</td>
+<td style="text-align: left;">Austria</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">83856</td>
+<td style="text-align: right;">0.0000119</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 </section>
@@ -587,68 +776,185 @@ $ n               &lt;dbl&gt; 4, 1, 2, 2, 1, 3, 2, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1,
 <p>Once this is done, you can again filter one name. I recommend taking a name that occurs in both men and women (like “Kim”), so the results of the ANOVA below make more sense.</p>
 <p>Add another filter() call to each of the data sets for this. After this, the cleaning and data organizing is finished.</p>
 <p>Austrian data set complete data cleaning and organizing:</p>
-<div class="cell" data-hash="Lesson3b_cache/html/unnamed-chunk-19_d7e68b499c542ddf1f74366a6ea2b8a1">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>data_aut_clean <span class="ot">&lt;-</span> data_aut <span class="sc">%&gt;%</span> </span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">year =</span> <span class="st">'C-JAHR-0'</span>, </span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">sex =</span> <span class="st">'C-GESCHLECHT-0'</span>,</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">living_district =</span> <span class="st">'C-WOHNBEZIRK-0'</span>,</span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">name =</span> <span class="st">'F-VORNAME_NORMALISIERT'</span>,</span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">n =</span> <span class="st">'F-ANZAHL_LGEB'</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">#keep only years up to 2017</span></span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&lt;=</span> <span class="dv">2017</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Re-code the levels of sex from 1 and 2, to M and F</span></span>
-<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sex =</span> <span class="fu">ifelse</span>(sex <span class="sc">==</span> <span class="st">"1"</span>, <span class="st">"M"</span>, <span class="st">"F"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>  <span class="co">#create a country variable for Austria</span></span>
-<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">rep</span>(<span class="st">"Austria"</span>, <span class="at">n=</span><span class="fu">nrow</span>(data_aut))) <span class="sc">%&gt;%</span></span>
-<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">#group by year, sex and name and calculate the new sum for each category</span></span>
-<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, sex, name, country) <span class="sc">%&gt;%</span> </span>
-<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span>  <span class="co"># see lesson 3 page for documentation</span></span>
-<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()<span class="sc">%&gt;%</span></span>
-<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>  <span class="co">#calculate total number of birth per year, and then proportion for each name out of this total</span></span>
-<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, country) <span class="sc">%&gt;%</span> </span>
-<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n_total =</span> <span class="fu">sum</span>(n), </span>
-<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a>         <span class="at">prop =</span> n<span class="sc">/</span>n_total) <span class="sc">%&gt;%</span> </span>
-<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb34-23"><a href="#cb34-23" aria-hidden="true" tabindex="-1"></a>  <span class="co">#filter out your name</span></span>
-<span id="cb34-24"><a href="#cb34-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name <span class="sc">==</span> <span class="st">"Kim"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>data_aut_clean <span class="ot">&lt;-</span> data_aut <span class="sc">%&gt;%</span> </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">year =</span> <span class="st">'C-JAHR-0'</span>, </span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">sex =</span> <span class="st">'C-GESCHLECHT-0'</span>,</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">living_district =</span> <span class="st">'C-WOHNBEZIRK-0'</span>,</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">name =</span> <span class="st">'F-VORNAME_NORMALISIERT'</span>,</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">n =</span> <span class="st">'F-ANZAHL_LGEB'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">#keep only years up to 2017</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&lt;=</span> <span class="dv">2017</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Re-code the levels of sex from 1 and 2, to M and F</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sex =</span> <span class="fu">ifelse</span>(sex <span class="sc">==</span> <span class="st">"1"</span>, <span class="st">"M"</span>, <span class="st">"F"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>  <span class="co">#create a country variable for Austria</span></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">rep</span>(<span class="st">"Austria"</span>, <span class="at">n=</span><span class="fu">nrow</span>(data_aut))) <span class="sc">%&gt;%</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">#group by year, sex and name and calculate the new sum for each category</span></span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, sex, name, country) <span class="sc">%&gt;%</span> </span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span>  <span class="co"># see lesson 3 page for documentation</span></span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>  <span class="co">#calculate total number of birth per year, and then proportion for each name out of this total</span></span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, country) <span class="sc">%&gt;%</span> </span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n_total =</span> <span class="fu">sum</span>(n), </span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a>         <span class="at">prop =</span> n<span class="sc">/</span>n_total) <span class="sc">%&gt;%</span> </span>
+<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a>  <span class="co">#filter out your name</span></span>
+<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name <span class="sc">==</span> <span class="st">"Kim"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>USA data set complete data cleaning and organizing:</p>
-<div class="cell" data-hash="Lesson3b_cache/html/unnamed-chunk-20_4dd3537d7c989ca701610cd37d5595d8">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>data_usa_clean <span class="ot">=</span> data_usa <span class="sc">%&gt;%</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">#keep only years from 1984 on</span></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;</span> <span class="dv">1983</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Create a country variable for the US</span></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">rep</span>(<span class="st">"USA"</span>, <span class="at">n=</span><span class="fu">nrow</span>(data_usa))) <span class="sc">%&gt;%</span> </span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">#filter out your name</span></span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name <span class="sc">==</span> <span class="st">"Kim"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>data_usa_clean <span class="ot">=</span> data_usa <span class="sc">%&gt;%</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">#keep only years from 1984 on</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;</span> <span class="dv">1983</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Create a country variable for the US</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">rep</span>(<span class="st">"USA"</span>, <span class="at">n=</span><span class="fu">nrow</span>(data_usa))) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">#filter out your name</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name <span class="sc">==</span> <span class="st">"Kim"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Have a look at both organized data sets:</p>
-<div class="cell" data-hash="Lesson3b_cache/html/unnamed-chunk-21_34e7101454d63af8d456ecce52301ff7">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data_usa_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 6
-   year sex   name      n      prop country
-  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt;     &lt;dbl&gt; &lt;chr&gt;  
-1  1984 F     Kim     387 0.000215  USA    
-2  1984 M     Kim      92 0.0000490 USA    
-3  1985 F     Kim     348 0.000189  USA    
-4  1985 M     Kim      92 0.0000478 USA    
-5  1986 F     Kim     281 0.000152  USA    
-6  1986 M     Kim      81 0.0000422 USA    </code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data_usa_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">year</th>
+<th style="text-align: left;">sex</th>
+<th style="text-align: left;">name</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">prop</th>
+<th style="text-align: left;">country</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1984</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">387</td>
+<td style="text-align: right;">0.0002147</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1984</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">92</td>
+<td style="text-align: right;">0.0000490</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1985</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">348</td>
+<td style="text-align: right;">0.0001885</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1985</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">92</td>
+<td style="text-align: right;">0.0000478</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1986</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">281</td>
+<td style="text-align: right;">0.0001523</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1986</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">81</td>
+<td style="text-align: right;">0.0000422</td>
+<td style="text-align: left;">USA</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data_aut_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 7
-   year sex   name  country     n n_total      prop
-  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;
-1  1984 F     Kim   Austria     1   83856 0.0000119
-2  1984 M     Kim   Austria     2   83856 0.0000239
-3  1985 F     Kim   Austria     3   82379 0.0000364
-4  1986 F     Kim   Austria     6   82056 0.0000731
-5  1987 F     Kim   Austria     2   81351 0.0000246
-6  1988 F     Kim   Austria     7   82545 0.0000848</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data_aut_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">year</th>
+<th style="text-align: left;">sex</th>
+<th style="text-align: left;">name</th>
+<th style="text-align: left;">country</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">n_total</th>
+<th style="text-align: right;">prop</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1984</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: left;">Austria</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">83856</td>
+<td style="text-align: right;">1.19e-05</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1984</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: left;">Austria</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">83856</td>
+<td style="text-align: right;">2.39e-05</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1985</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: left;">Austria</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">82379</td>
+<td style="text-align: right;">3.64e-05</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1986</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: left;">Austria</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">82056</td>
+<td style="text-align: right;">7.31e-05</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1987</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: left;">Austria</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">81351</td>
+<td style="text-align: right;">2.46e-05</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1988</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: left;">Austria</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">82545</td>
+<td style="text-align: right;">8.48e-05</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 </section>
@@ -666,50 +972,174 @@ $ n               &lt;dbl&gt; 4, 1, 2, 2, 1, 3, 2, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1,
 <li><code>full_join()</code> is one of 4 Mutating joins. It keeps all observations from both data frames.</li>
 <li>Check out inner_join, right_join, and left_join with the Examples provided in the help on <code>?full_join</code> when you have a moment. It takes a bit of time to understand them.</li>
 </ul>
-<div class="cell" data-hash="Lesson3b_cache/html/unnamed-chunk-22_195e8e4cb65df13d0d1f526398d8ae1a">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># join the two data frames, keeping all columns and entries from both data frames</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>data_combined <span class="ot">&lt;-</span> data_usa_clean <span class="sc">%&gt;%</span> </span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(data_aut_clean) </span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data_combined)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 7
-   year sex   name      n      prop country n_total
-  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;
-1  1984 F     Kim     387 0.000215  USA          NA
-2  1984 M     Kim      92 0.0000490 USA          NA
-3  1985 F     Kim     348 0.000189  USA          NA
-4  1985 M     Kim      92 0.0000478 USA          NA
-5  1986 F     Kim     281 0.000152  USA          NA
-6  1986 M     Kim      81 0.0000422 USA          NA</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># join the two data frames, keeping all columns and entries from both data frames</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>data_combined <span class="ot">&lt;-</span> data_usa_clean <span class="sc">%&gt;%</span> </span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(data_aut_clean) </span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data_combined)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">year</th>
+<th style="text-align: left;">sex</th>
+<th style="text-align: left;">name</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">prop</th>
+<th style="text-align: left;">country</th>
+<th style="text-align: right;">n_total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1984</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">387</td>
+<td style="text-align: right;">0.0002147</td>
+<td style="text-align: left;">USA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1984</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">92</td>
+<td style="text-align: right;">0.0000490</td>
+<td style="text-align: left;">USA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1985</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">348</td>
+<td style="text-align: right;">0.0001885</td>
+<td style="text-align: left;">USA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1985</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">92</td>
+<td style="text-align: right;">0.0000478</td>
+<td style="text-align: left;">USA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1986</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">281</td>
+<td style="text-align: right;">0.0001523</td>
+<td style="text-align: left;">USA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1986</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">81</td>
+<td style="text-align: right;">0.0000422</td>
+<td style="text-align: left;">USA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 <ul>
 <li>To see data points from both countries, you could sort values by year using <code>arrange()</code>.</li>
 <li>In addition, lets transform the columns sex and country into categorical variables (factors).</li>
 </ul>
-<div class="cell" data-hash="Lesson3b_cache/html/unnamed-chunk-23_d6f3ef962278e5a5be54c8f35f4991e2">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>data_combined <span class="ot">&lt;-</span> data_usa_clean <span class="sc">%&gt;%</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># join the two data frames</span></span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(data_aut_clean) <span class="sc">%&gt;%</span> </span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># sort by year</span></span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(year)<span class="sc">%&gt;%</span></span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># transform sex into a factor</span></span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sex =</span> <span class="fu">factor</span>(sex)) <span class="sc">%&gt;%</span> </span>
-<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># transform country into a factor with 2 levels:</span></span>
-<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">factor</span>(country))</span>
-<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data_combined)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 7
-   year sex   name      n      prop country n_total
-  &lt;dbl&gt; &lt;fct&gt; &lt;chr&gt; &lt;dbl&gt;     &lt;dbl&gt; &lt;fct&gt;     &lt;dbl&gt;
-1  1984 F     Kim     387 0.000215  USA          NA
-2  1984 M     Kim      92 0.0000490 USA          NA
-3  1984 F     Kim       1 0.0000119 Austria   83856
-4  1984 M     Kim       2 0.0000239 Austria   83856
-5  1985 F     Kim     348 0.000189  USA          NA
-6  1985 M     Kim      92 0.0000478 USA          NA</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>data_combined <span class="ot">&lt;-</span> data_usa_clean <span class="sc">%&gt;%</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># join the two data frames</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(data_aut_clean) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># sort by year</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(year)<span class="sc">%&gt;%</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># transform sex into a factor</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sex =</span> <span class="fu">factor</span>(sex)) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># transform country into a factor with 2 levels:</span></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">factor</span>(country))</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data_combined)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">year</th>
+<th style="text-align: left;">sex</th>
+<th style="text-align: left;">name</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">prop</th>
+<th style="text-align: left;">country</th>
+<th style="text-align: right;">n_total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1984</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">387</td>
+<td style="text-align: right;">0.0002147</td>
+<td style="text-align: left;">USA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1984</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">92</td>
+<td style="text-align: right;">0.0000490</td>
+<td style="text-align: left;">USA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1984</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.0000119</td>
+<td style="text-align: left;">Austria</td>
+<td style="text-align: right;">83856</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1984</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.0000239</td>
+<td style="text-align: left;">Austria</td>
+<td style="text-align: right;">83856</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1985</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">348</td>
+<td style="text-align: right;">0.0001885</td>
+<td style="text-align: left;">USA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1985</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">92</td>
+<td style="text-align: right;">0.0000478</td>
+<td style="text-align: left;">USA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data_combined)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data_combined)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      year      sex        name                 n               prop          
  Min.   :1984   F:68   Length:127         Min.   :  1.00   Min.   :3.210e-06  
@@ -734,56 +1164,1074 @@ $ n               &lt;dbl&gt; 4, 1, 2, 2, 1, 3, 2, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1,
 <li>It selects the columns you list.</li>
 <li>if you add a minus, it deletes the columns you list</li>
 </ul>
-<div class="cell" data-hash="Lesson3b_cache/html/unnamed-chunk-24_4e3f9da494b59f9f583c5fd39295c9a9">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>data_combined <span class="ot">&lt;-</span> data_usa_clean <span class="sc">%&gt;%</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># join the two data frames</span></span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(data_aut_clean) <span class="sc">%&gt;%</span> </span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># sort by year</span></span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(year)<span class="sc">%&gt;%</span></span>
-<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># transform sex into a factor</span></span>
-<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sex =</span> <span class="fu">factor</span>(sex)) <span class="sc">%&gt;%</span> </span>
-<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># transform country into a factor with 2 levels:</span></span>
-<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">factor</span>(country)) <span class="sc">%&gt;%</span> </span>
-<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># delete the column n_total</span></span>
-<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>n_total) <span class="co">#to delete multiple columns: -c("column_1", "column_2")</span></span>
-<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a>data_combined</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 127 × 6
-    year sex   name      n      prop country
-   &lt;dbl&gt; &lt;fct&gt; &lt;chr&gt; &lt;dbl&gt;     &lt;dbl&gt; &lt;fct&gt;  
- 1  1984 F     Kim     387 0.000215  USA    
- 2  1984 M     Kim      92 0.0000490 USA    
- 3  1984 F     Kim       1 0.0000119 Austria
- 4  1984 M     Kim       2 0.0000239 Austria
- 5  1985 F     Kim     348 0.000189  USA    
- 6  1985 M     Kim      92 0.0000478 USA    
- 7  1985 F     Kim       3 0.0000364 Austria
- 8  1986 F     Kim     281 0.000152  USA    
- 9  1986 M     Kim      81 0.0000422 USA    
-10  1986 F     Kim       6 0.0000731 Austria
-# ℹ 117 more rows</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>data_combined <span class="ot">&lt;-</span> data_usa_clean <span class="sc">%&gt;%</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># join the two data frames</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(data_aut_clean) <span class="sc">%&gt;%</span> </span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># sort by year</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(year)<span class="sc">%&gt;%</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># transform sex into a factor</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sex =</span> <span class="fu">factor</span>(sex)) <span class="sc">%&gt;%</span> </span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># transform country into a factor with 2 levels:</span></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">factor</span>(country)) <span class="sc">%&gt;%</span> </span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># delete the column n_total</span></span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>n_total) <span class="co">#to delete multiple columns: -c("column_1", "column_2")</span></span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>data_combined</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">year</th>
+<th style="text-align: left;">sex</th>
+<th style="text-align: left;">name</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">prop</th>
+<th style="text-align: left;">country</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1984</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">387</td>
+<td style="text-align: right;">0.0002147</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1984</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">92</td>
+<td style="text-align: right;">0.0000490</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1984</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.0000119</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1984</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.0000239</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1985</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">348</td>
+<td style="text-align: right;">0.0001885</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1985</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">92</td>
+<td style="text-align: right;">0.0000478</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1985</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0.0000364</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1986</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">281</td>
+<td style="text-align: right;">0.0001523</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1986</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">81</td>
+<td style="text-align: right;">0.0000422</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1986</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">0.0000731</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1987</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">280</td>
+<td style="text-align: right;">0.0001494</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1987</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">76</td>
+<td style="text-align: right;">0.0000390</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1987</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.0000246</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1988</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">252</td>
+<td style="text-align: right;">0.0001311</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1988</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">89</td>
+<td style="text-align: right;">0.0000445</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1988</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0.0000848</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1989</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">259</td>
+<td style="text-align: right;">0.0001300</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1989</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">72</td>
+<td style="text-align: right;">0.0000344</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1989</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">0.0001818</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1989</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">0.0000727</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1990</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">257</td>
+<td style="text-align: right;">0.0001251</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1990</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">66</td>
+<td style="text-align: right;">0.0000307</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1990</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0.0001441</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1990</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.0000120</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1991</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">207</td>
+<td style="text-align: right;">0.0001018</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1991</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">0.0000283</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1991</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">0.0002348</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1992</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">182</td>
+<td style="text-align: right;">0.0000908</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1992</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">0.0000214</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1992</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">0.0002407</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1992</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.0000120</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1993</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">185</td>
+<td style="text-align: right;">0.0000938</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1993</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">0.0000189</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1993</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">0.0002080</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1994</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">160</td>
+<td style="text-align: right;">0.0000821</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1994</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">0.0000226</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1994</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">0.0002526</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1995</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">135</td>
+<td style="text-align: right;">0.0000703</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1995</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">31</td>
+<td style="text-align: right;">0.0000154</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1995</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0.0001055</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1995</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.0000264</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1996</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">130</td>
+<td style="text-align: right;">0.0000678</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1996</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">0.0000235</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1996</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">0.0001972</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1996</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.0000263</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1997</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">110</td>
+<td style="text-align: right;">0.0000576</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1997</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">0.0000100</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1997</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">0.0002487</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1997</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.0000138</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1998</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">102</td>
+<td style="text-align: right;">0.0000526</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1998</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">0.0000118</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1998</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">0.0002148</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1998</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.0000143</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1999</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">133</td>
+<td style="text-align: right;">0.0000683</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1999</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">29</td>
+<td style="text-align: right;">0.0000142</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1999</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">0.0002393</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1999</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.0000299</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2000</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">116</td>
+<td style="text-align: right;">0.0000581</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2000</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">0.0000086</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2000</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0.0001493</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2000</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.0000299</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2001</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">0.0000505</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2001</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">0.0000126</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2001</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0.0001855</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2001</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.0000155</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2002</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">111</td>
+<td style="text-align: right;">0.0000562</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2002</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">0.0000068</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2002</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0.0001781</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2002</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.0000297</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2003</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">83</td>
+<td style="text-align: right;">0.0000414</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2003</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">0.0000081</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2003</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">0.0002098</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2003</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0.0000600</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2004</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">91</td>
+<td style="text-align: right;">0.0000451</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2004</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">0.0000085</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2004</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">0.0003349</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2004</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.0000146</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2005</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">73</td>
+<td style="text-align: right;">0.0000360</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2005</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">0.0000061</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2005</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">0.0002070</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2005</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.0000148</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2006</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">85</td>
+<td style="text-align: right;">0.0000407</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2006</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0.0000046</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2006</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">0.0003562</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2006</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.0000297</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2007</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">104</td>
+<td style="text-align: right;">0.0000492</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2007</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0.0000045</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2007</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">0.0003504</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2007</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.0000305</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2008</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">63</td>
+<td style="text-align: right;">0.0000303</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2008</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0.0000032</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2008</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">0.0003161</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2008</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0.0000753</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2009</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">0.0000237</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2009</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">0.0000080</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2009</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">0.0002173</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2009</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.0000155</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2010</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">0.0000266</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2010</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0.0000044</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2010</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">0.0001946</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2010</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.0000130</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2011</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">0.0000258</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2011</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0.0000034</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2011</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">0.0002746</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2011</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.0000131</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2012</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">91</td>
+<td style="text-align: right;">0.0000470</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2012</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0.0000044</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2012</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">0.0002458</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2012</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.0000259</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2013</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">62</td>
+<td style="text-align: right;">0.0000322</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2013</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0.0000040</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2013</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">0.0001802</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2014</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">69</td>
+<td style="text-align: right;">0.0000354</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2014</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">0.0000093</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2014</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">0.0002128</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2015</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">72</td>
+<td style="text-align: right;">0.0000370</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2015</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">0.0000054</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2015</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">0.0001336</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2015</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.0000243</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2016</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">0.0000270</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2016</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0.0000035</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2016</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">0.0001290</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2016</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.0000117</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2017</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">0.0000245</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2017</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0.0000041</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2017</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0.0000469</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2017</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.0000117</td>
+<td style="text-align: left;">Austria</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 </section>
 <section id="figures-script" class="level2" data-number="6">
 <h2 data-number="6" class="anchored" data-anchor-id="figures-script"><span class="header-section-number">6</span> Figures script</h2>
 <p>In the figures script, add the following figure:</p>
-<div class="cell" data-hash="Lesson3b_cache/html/pet-plot_5f49f00c891b22ae47103d447be5b485">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Boxplot of name propotion by sex and country</span></span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data_combined, <span class="fu">aes</span>(country, prop, <span class="at">fill =</span> sex)) <span class="sc">+</span></span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"orange"</span>, <span class="st">"dodgerblue"</span>)) <span class="sc">+</span></span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Country"</span>, <span class="at">y =</span> <span class="st">"Proportion"</span>) <span class="sc">+</span></span>
-<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>, <span class="at">family =</span> <span class="st">"Times"</span>))<span class="sc">+</span></span>
-<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
-<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Popularity of the name </span><span class="sc">\"</span><span class="st">Kim</span><span class="sc">\"</span><span class="st"> by country and sex"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Boxplot of name propotion by sex and country</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data_combined, <span class="fu">aes</span>(country, prop, <span class="at">fill =</span> sex)) <span class="sc">+</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"orange"</span>, <span class="st">"dodgerblue"</span>)) <span class="sc">+</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Country"</span>, <span class="at">y =</span> <span class="st">"Proportion"</span>) <span class="sc">+</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>, <span class="at">family =</span> <span class="st">"Times"</span>))<span class="sc">+</span></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Popularity of the name </span><span class="sc">\"</span><span class="st">Kim</span><span class="sc">\"</span><span class="st"> by country and sex"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="Lesson3b_files/figure-html/pet-plot-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure 1. Scores by pet type and country.</figcaption>
+<figcaption>Figure 1. Scores by pet type and country.</figcaption>
 </figure>
 </div>
 </div>
@@ -800,9 +2248,9 @@ $ n               &lt;dbl&gt; 4, 1, 2, 2, 1, 3, 2, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1,
 <section id="t-test-by-country" class="level3" data-number="7.1">
 <h3 data-number="7.1" class="anchored" data-anchor-id="t-test-by-country"><span class="header-section-number">7.1</span> T-test by country</h3>
 <p>Is your name more popular in Austria or the USA? Although this data is not normally distributed, I want to show you how to do a t-test:</p>
-<div class="cell" data-hash="Lesson3b_cache/html/unnamed-chunk-25_9f541d809351171f471eb4ff7be3144f">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># t-test between countries</span></span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(prop <span class="sc">~</span> country, <span class="at">data =</span> data_combined)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># t-test between countries</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(prop <span class="sc">~</span> country, <span class="at">data =</span> data_combined)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Welch Two Sample t-test
@@ -820,9 +2268,9 @@ mean in group Austria     mean in group USA
 <ul>
 <li>You can see that “Kim” is significantly more popular in Austria compared to the US.</li>
 </ul>
-<div class="cell" data-hash="Lesson3b_cache/html/unnamed-chunk-26_f4f1579d32928919f8f5331a1d84c786">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># t-test between men and women</span></span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(prop <span class="sc">~</span> sex, <span class="at">data =</span> data_combined)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># t-test between men and women</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(prop <span class="sc">~</span> sex, <span class="at">data =</span> data_combined)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Welch Two Sample t-test
@@ -845,12 +2293,12 @@ mean in group F mean in group M
 <h3 data-number="7.2" class="anchored" data-anchor-id="multi-factorial-anova-difference-in-name-popularity-by-sex-and-country"><span class="header-section-number">7.2</span> Multi-factorial ANOVA: Difference in name popularity by sex and country</h3>
 <p>If you want to investigate if your name is more popular for men or women, and if this difference varies across countries, you could run an ANOVA (analysis of variance) with two factors (sex and country).</p>
 <p>I recommend using the package “ez” for this. Load it at the top of your statistics script.</p>
-<div class="cell" data-hash="Lesson3b_cache/html/unnamed-chunk-27_d4c41730e36d60a3933474f1a08b6f6b">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install in the console</span></span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ez"</span>)</span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="co"># In your script: </span></span>
-<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ez)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install in the console</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ez"</span>)</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="co"># In your script: </span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ez)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>After your other analyses (the linear regression and t-test), you can now add the ANOVA in your statistics script, using the function <code>ezANOVA()</code>. It’s arguments:</p>
 <ul>
@@ -863,14 +2311,14 @@ mean in group F mean in group M
 <li><p>between: the predictors. ezANOVA requires that you enter multiple predictors as a list: .(x, y, z)</p></li>
 <li><p>Type 3 defines which sum of squares are calculated for the ANOVA. This is detailed statistics knowledge, and only slightly changes your result. In any case, SPSS by default gives you type 3, so we use it here.</p></li>
 </ul>
-<div class="cell" data-hash="Lesson3b_cache/html/unnamed-chunk-28_3b6f248bf7669c4be4097c53c9719de0">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>country_sex.aov <span class="ot">=</span> <span class="fu">ezANOVA</span>(<span class="at">data =</span> data_combined,</span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">dv =</span> prop, </span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">wid =</span> .(<span class="st">"year"</span>, <span class="st">"name"</span>),</span>
-<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>        <span class="co"># predictors</span></span>
-<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">between =</span> .(<span class="st">"country"</span>, <span class="st">"sex"</span>),</span>
-<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">type =</span> <span class="dv">3</span>)</span>
-<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>country_sex.aov</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>country_sex.aov <span class="ot">=</span> <span class="fu">ezANOVA</span>(<span class="at">data =</span> data_combined,</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">dv =</span> prop, </span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">wid =</span> .(<span class="st">"year"</span>, <span class="st">"name"</span>),</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>        <span class="co"># predictors</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">between =</span> .(<span class="st">"country"</span>, <span class="st">"sex"</span>),</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">type =</span> <span class="dv">3</span>)</span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>country_sex.aov</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$ANOVA
        Effect DFn DFd         F            p p&lt;.05       ges
@@ -886,26 +2334,26 @@ $`Levene's Test for Homogeneity of Variance`
 </section>
 <section id="make-a-table-with-statistics-and-export-it-to-a-csv-file" class="level3" data-number="7.3">
 <h3 data-number="7.3" class="anchored" data-anchor-id="make-a-table-with-statistics-and-export-it-to-a-csv-file"><span class="header-section-number">7.3</span> Make a table with statistics and export it to a csv-file</h3>
-<div class="cell" data-hash="Lesson3b_cache/html/unnamed-chunk-29_aecf851d8f47257361645fec85cb2daf">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a table with number of babyes with the name Kim per country and sex, with mean and sd: </span></span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>summary_table <span class="ot">&lt;-</span> data_combined <span class="sc">%&gt;%</span></span>
-<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(country, sex) <span class="sc">%&gt;%</span></span>
-<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">#summarise: calculate one number/statistic per group created above</span></span>
-<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(), </span>
-<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># calculate mean and standard deviation</span></span>
-<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_proportion =</span> <span class="fu">mean</span>(prop), </span>
-<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd_proportion =</span> <span class="fu">sd</span>(prop), </span>
-<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># transform to percent for readibility</span></span>
-<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_percent =</span> mean_proportion<span class="sc">*</span><span class="dv">100</span>, </span>
-<span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd_percent =</span> sd_proportion<span class="sc">*</span><span class="dv">100</span></span>
-<span id="cb56-13"><a href="#cb56-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
-<span id="cb56-14"><a href="#cb56-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb56-15"><a href="#cb56-15" aria-hidden="true" tabindex="-1"></a><span class="co"># print</span></span>
-<span id="cb56-16"><a href="#cb56-16" aria-hidden="true" tabindex="-1"></a>summary_table</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a table with number of babyes with the name Kim per country and sex, with mean and sd: </span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>summary_table <span class="ot">&lt;-</span> data_combined <span class="sc">%&gt;%</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(country, sex) <span class="sc">%&gt;%</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">#summarise: calculate one number/statistic per group created above</span></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(), </span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># calculate mean and standard deviation</span></span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_proportion =</span> <span class="fu">mean</span>(prop), </span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd_proportion =</span> <span class="fu">sd</span>(prop), </span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># transform to percent for readibility</span></span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_percent =</span> mean_proportion<span class="sc">*</span><span class="dv">100</span>, </span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd_percent =</span> sd_proportion<span class="sc">*</span><span class="dv">100</span></span>
+<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a><span class="co"># print</span></span>
+<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a>summary_table</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="kable-table">
-<table class="table table-sm table-striped small">
+<table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 11%">
 <col style="width: 5%">
@@ -967,8 +2415,8 @@ $`Levene's Test for Homogeneity of Variance`
 </table>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># To write results to an excel table, in order to include tables into papers, for example: </span></span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>readr<span class="sc">::</span><span class="fu">write_csv</span>(summary_table, <span class="st">'write_up/descriptives_table.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># To write results to an excel table, in order to include tables into papers, for example: </span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>readr<span class="sc">::</span><span class="fu">write_csv</span>(summary_table, <span class="st">'write_up/descriptives_table.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -989,25 +2437,80 @@ $`Levene's Test for Homogeneity of Variance`
 </ul></li>
 <li>Write the following code in your section for organizing data in the statistics script.</li>
 </ul>
-<div class="cell" data-hash="Lesson3b_cache/html/unnamed-chunk-30_ab6d2f4ab57fa7ced40216dd3fc3d304">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="do">## ORGANIZE DATA ####</span></span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="co"># create data frame in wide format</span></span>
-<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>data_combined_wide <span class="ot">=</span> tidyr<span class="sc">::</span><span class="fu">pivot_wider</span>(data_combined, </span>
-<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">id_cols =</span> <span class="fu">c</span>(<span class="st">"year"</span>, <span class="st">"name"</span>), </span>
-<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">names_from =</span> <span class="fu">c</span>(<span class="st">"country"</span>, <span class="st">"sex"</span>), </span>
-<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">values_from =</span> <span class="st">"prop"</span>)</span>
-<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data_combined_wide)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 6
-   year name     USA_F     USA_M Austria_F  Austria_M
-  &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
-1  1984 Kim   0.000215 0.0000490 0.0000119  0.0000239
-2  1985 Kim   0.000189 0.0000478 0.0000364 NA        
-3  1986 Kim   0.000152 0.0000422 0.0000731 NA        
-4  1987 Kim   0.000149 0.0000390 0.0000246 NA        
-5  1988 Kim   0.000131 0.0000445 0.0000848 NA        
-6  1989 Kim   0.000130 0.0000344 0.000182   0.0000727</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="do">## ORGANIZE DATA ####</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="co"># create data frame in wide format</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>data_combined_wide <span class="ot">=</span> tidyr<span class="sc">::</span><span class="fu">pivot_wider</span>(data_combined, </span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">id_cols =</span> <span class="fu">c</span>(<span class="st">"year"</span>, <span class="st">"name"</span>), </span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">names_from =</span> <span class="fu">c</span>(<span class="st">"country"</span>, <span class="st">"sex"</span>), </span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">values_from =</span> <span class="st">"prop"</span>)</span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data_combined_wide)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">year</th>
+<th style="text-align: left;">name</th>
+<th style="text-align: right;">USA_F</th>
+<th style="text-align: right;">USA_M</th>
+<th style="text-align: right;">Austria_F</th>
+<th style="text-align: right;">Austria_M</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1984</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">0.0002147</td>
+<td style="text-align: right;">4.90e-05</td>
+<td style="text-align: right;">0.0000119</td>
+<td style="text-align: right;">2.39e-05</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1985</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">0.0001885</td>
+<td style="text-align: right;">4.78e-05</td>
+<td style="text-align: right;">0.0000364</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1986</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">0.0001523</td>
+<td style="text-align: right;">4.22e-05</td>
+<td style="text-align: right;">0.0000731</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1987</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">0.0001494</td>
+<td style="text-align: right;">3.90e-05</td>
+<td style="text-align: right;">0.0000246</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1988</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">0.0001311</td>
+<td style="text-align: right;">4.45e-05</td>
+<td style="text-align: right;">0.0000848</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1989</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">0.0001300</td>
+<td style="text-align: right;">3.44e-05</td>
+<td style="text-align: right;">0.0001818</td>
+<td style="text-align: right;">7.27e-05</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 <ul>
@@ -1015,9 +2518,9 @@ $`Levene's Test for Homogeneity of Variance`
 <li>The function that transforms data frames in the reverse direction, is called <code>pivot_longer()</code>. Try to back transform your wide data frame to a long one as an exercise!</li>
 </ul>
 <p>You can see that the wide data frame has empty values (NA = not available) for men in the USA. our pivot_wider call added a row for each year where the name Kim occurred in any country or sex, this is why cells with no data for Kim now have an NA.You could also check how many NAs are in the column with the line of code below.</p>
-<div class="cell" data-hash="Lesson3b_cache/html/unnamed-chunk-31_b4f7cd6c9a25b5acfeaa66fbebe9f236">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># are there any missing values? How many?</span></span>
-<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(data_combined_wide<span class="sc">$</span>Austria_M))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># are there any missing values? How many?</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(data_combined_wide<span class="sc">$</span>Austria_M))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 9</code></pre>
 </div>
@@ -1028,26 +2531,300 @@ $`Levene's Test for Homogeneity of Variance`
 <li>if this condition is met (TRUE), then replace with a 0</li>
 <li>else, keep the value of Austria_M.</li>
 </ul>
-<div class="cell" data-hash="Lesson3b_cache/html/unnamed-chunk-32_aa451c2a565a6cbb3a166c64aa32d6c4">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>data_combined_wide <span class="ot">=</span> data_combined_wide <span class="sc">%&gt;%</span> </span>
-<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># replace NAs with zero</span></span>
-<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Austria_M =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(Austria_M), <span class="dv">0</span>, Austria_M))</span>
-<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>data_combined_wide</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 34 × 6
-    year name      USA_F     USA_M Austria_F Austria_M
-   &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
- 1  1984 Kim   0.000215  0.0000490 0.0000119 0.0000239
- 2  1985 Kim   0.000189  0.0000478 0.0000364 0        
- 3  1986 Kim   0.000152  0.0000422 0.0000731 0        
- 4  1987 Kim   0.000149  0.0000390 0.0000246 0        
- 5  1988 Kim   0.000131  0.0000445 0.0000848 0        
- 6  1989 Kim   0.000130  0.0000344 0.000182  0.0000727
- 7  1990 Kim   0.000125  0.0000307 0.000144  0.0000120
- 8  1991 Kim   0.000102  0.0000283 0.000235  0        
- 9  1992 Kim   0.0000908 0.0000214 0.000241  0.0000120
-10  1993 Kim   0.0000938 0.0000189 0.000208  0        
-# ℹ 24 more rows</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>data_combined_wide <span class="ot">=</span> data_combined_wide <span class="sc">%&gt;%</span> </span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># replace NAs with zero</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Austria_M =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(Austria_M), <span class="dv">0</span>, Austria_M))</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>data_combined_wide</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">year</th>
+<th style="text-align: left;">name</th>
+<th style="text-align: right;">USA_F</th>
+<th style="text-align: right;">USA_M</th>
+<th style="text-align: right;">Austria_F</th>
+<th style="text-align: right;">Austria_M</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1984</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">0.0002147</td>
+<td style="text-align: right;">4.90e-05</td>
+<td style="text-align: right;">0.0000119</td>
+<td style="text-align: right;">2.39e-05</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1985</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">0.0001885</td>
+<td style="text-align: right;">4.78e-05</td>
+<td style="text-align: right;">0.0000364</td>
+<td style="text-align: right;">0.00e+00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1986</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">0.0001523</td>
+<td style="text-align: right;">4.22e-05</td>
+<td style="text-align: right;">0.0000731</td>
+<td style="text-align: right;">0.00e+00</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1987</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">0.0001494</td>
+<td style="text-align: right;">3.90e-05</td>
+<td style="text-align: right;">0.0000246</td>
+<td style="text-align: right;">0.00e+00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1988</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">0.0001311</td>
+<td style="text-align: right;">4.45e-05</td>
+<td style="text-align: right;">0.0000848</td>
+<td style="text-align: right;">0.00e+00</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1989</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">0.0001300</td>
+<td style="text-align: right;">3.44e-05</td>
+<td style="text-align: right;">0.0001818</td>
+<td style="text-align: right;">7.27e-05</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1990</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">0.0001251</td>
+<td style="text-align: right;">3.07e-05</td>
+<td style="text-align: right;">0.0001441</td>
+<td style="text-align: right;">1.20e-05</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1991</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">0.0001018</td>
+<td style="text-align: right;">2.83e-05</td>
+<td style="text-align: right;">0.0002348</td>
+<td style="text-align: right;">0.00e+00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1992</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">0.0000908</td>
+<td style="text-align: right;">2.14e-05</td>
+<td style="text-align: right;">0.0002407</td>
+<td style="text-align: right;">1.20e-05</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1993</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">0.0000938</td>
+<td style="text-align: right;">1.89e-05</td>
+<td style="text-align: right;">0.0002080</td>
+<td style="text-align: right;">0.00e+00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1994</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">0.0000821</td>
+<td style="text-align: right;">2.26e-05</td>
+<td style="text-align: right;">0.0002526</td>
+<td style="text-align: right;">0.00e+00</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1995</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">0.0000703</td>
+<td style="text-align: right;">1.54e-05</td>
+<td style="text-align: right;">0.0001055</td>
+<td style="text-align: right;">2.64e-05</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1996</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">0.0000678</td>
+<td style="text-align: right;">2.35e-05</td>
+<td style="text-align: right;">0.0001972</td>
+<td style="text-align: right;">2.63e-05</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1997</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">0.0000576</td>
+<td style="text-align: right;">1.00e-05</td>
+<td style="text-align: right;">0.0002487</td>
+<td style="text-align: right;">1.38e-05</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1998</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">0.0000526</td>
+<td style="text-align: right;">1.18e-05</td>
+<td style="text-align: right;">0.0002148</td>
+<td style="text-align: right;">1.43e-05</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1999</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">0.0000683</td>
+<td style="text-align: right;">1.42e-05</td>
+<td style="text-align: right;">0.0002393</td>
+<td style="text-align: right;">2.99e-05</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2000</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">0.0000581</td>
+<td style="text-align: right;">8.60e-06</td>
+<td style="text-align: right;">0.0001493</td>
+<td style="text-align: right;">2.99e-05</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2001</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">0.0000505</td>
+<td style="text-align: right;">1.26e-05</td>
+<td style="text-align: right;">0.0001855</td>
+<td style="text-align: right;">1.55e-05</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2002</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">0.0000562</td>
+<td style="text-align: right;">6.80e-06</td>
+<td style="text-align: right;">0.0001781</td>
+<td style="text-align: right;">2.97e-05</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2003</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">0.0000414</td>
+<td style="text-align: right;">8.10e-06</td>
+<td style="text-align: right;">0.0002098</td>
+<td style="text-align: right;">6.00e-05</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2004</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">0.0000451</td>
+<td style="text-align: right;">8.50e-06</td>
+<td style="text-align: right;">0.0003349</td>
+<td style="text-align: right;">1.46e-05</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2005</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">0.0000360</td>
+<td style="text-align: right;">6.10e-06</td>
+<td style="text-align: right;">0.0002070</td>
+<td style="text-align: right;">1.48e-05</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2006</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">0.0000407</td>
+<td style="text-align: right;">4.60e-06</td>
+<td style="text-align: right;">0.0003562</td>
+<td style="text-align: right;">2.97e-05</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2007</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">0.0000492</td>
+<td style="text-align: right;">4.50e-06</td>
+<td style="text-align: right;">0.0003504</td>
+<td style="text-align: right;">3.05e-05</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2008</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">0.0000303</td>
+<td style="text-align: right;">3.20e-06</td>
+<td style="text-align: right;">0.0003161</td>
+<td style="text-align: right;">7.53e-05</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2009</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">0.0000237</td>
+<td style="text-align: right;">8.00e-06</td>
+<td style="text-align: right;">0.0002173</td>
+<td style="text-align: right;">1.55e-05</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2010</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">0.0000266</td>
+<td style="text-align: right;">4.40e-06</td>
+<td style="text-align: right;">0.0001946</td>
+<td style="text-align: right;">1.30e-05</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2011</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">0.0000258</td>
+<td style="text-align: right;">3.40e-06</td>
+<td style="text-align: right;">0.0002746</td>
+<td style="text-align: right;">1.31e-05</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2012</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">0.0000470</td>
+<td style="text-align: right;">4.40e-06</td>
+<td style="text-align: right;">0.0002458</td>
+<td style="text-align: right;">2.59e-05</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2013</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">0.0000322</td>
+<td style="text-align: right;">4.00e-06</td>
+<td style="text-align: right;">0.0001802</td>
+<td style="text-align: right;">0.00e+00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2014</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">0.0000354</td>
+<td style="text-align: right;">9.30e-06</td>
+<td style="text-align: right;">0.0002128</td>
+<td style="text-align: right;">0.00e+00</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2015</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">0.0000370</td>
+<td style="text-align: right;">5.40e-06</td>
+<td style="text-align: right;">0.0001336</td>
+<td style="text-align: right;">2.43e-05</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2016</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">0.0000270</td>
+<td style="text-align: right;">3.50e-06</td>
+<td style="text-align: right;">0.0001290</td>
+<td style="text-align: right;">1.17e-05</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2017</td>
+<td style="text-align: left;">Kim</td>
+<td style="text-align: right;">0.0000245</td>
+<td style="text-align: right;">4.10e-06</td>
+<td style="text-align: right;">0.0000469</td>
+<td style="text-align: right;">1.17e-05</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 </section>
@@ -1093,18 +2870,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1136,11 +2902,50 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
-  function tippyHover(el, contentFn) {
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1150,8 +2955,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1163,7 +2977,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1207,6 +3144,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1232,6 +3170,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1292,6 +3256,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+
 
 
 

@@ -2,9 +2,10 @@
 title: "Lesson 3: "
 subtitle: "Course website: https://hannahmetzler.eu/R_intro/"
 author: "Hannah Metzler"
-date: "March 20 2024"
+date: "February 13 2025"
 format: 
   html:
+    theme: flatly
     toc: true # generate a table of content
     number-sections: true
     df-print: kable #format of data frames
@@ -508,11 +509,11 @@ What if x is categorical?
 
 **a = bx**
 
-| --  | Continuous Predictor                | Categorical Predictor                           |
-|-----------------|-----------------------|:-------------------------------|
-| x   | a set of continuous data points     | a set of binary/categorical data points         |
-| a   | the value of y when x is 0          | the value of y when x is the default level      |
-| b   | the change in y for one change in x | the change in y when x is the non-default level |
+| -- | Continuous Predictor | Categorical Predictor |
+|------------------|-----------------------|:------------------------------|
+| x | a set of continuous data points | a set of binary/categorical data points |
+| a | the value of y when x is 0 | the value of y when x is the default level |
+| b | the change in y for one change in x | the change in y when x is the non-default level |
 
 As an example, let's say chicks get 2 different diets:
 
@@ -661,6 +662,7 @@ load('lesson3_environment.RData')
 &#96;&#96;&#96;
 </code></pre>
 ```
+
 -   Add `echo = FALSE` (or only the F) in the curly brackets after r: \`\`\``{r, echo = FALSE}`. This let's R know you do not want to print out (echo) the code in the report, but only its results.
 
 -   Now add sections to your report, for example: <br><br>
@@ -707,6 +709,7 @@ year.lm_sum
 &#96;&#96;&#96;
 </code></pre>
 ```
+
 ```{Markdown, eval = F}
 ## Prevalence by Sex
 
@@ -721,6 +724,7 @@ sex.lm_sum
 &#96;&#96;&#96;
 </code></pre>
 ```
+
 -   You can continue describing your results and the conclusion at home.
 -   To compile the Quarto report, click `Render` at the top of the Quarto document.
 -   You can change the format from html, to docx, or pdf.

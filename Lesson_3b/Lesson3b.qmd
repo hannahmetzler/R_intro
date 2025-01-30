@@ -2,9 +2,10 @@
 title: "Lesson 3 extension: Data wrangling, t-tests and ANOVA"
 subtitle: "Course website: https://hannahmetzler.eu/R_intro/"
 author: "Hannah Metzler"
-date: "March 27 2024"
+date: "February 20 2025"
 format: 
   html:
+    theme: flatly
     toc: true # generate a table of content
     number-sections: true
     df-print: kable
