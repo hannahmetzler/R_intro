@@ -25,15 +25,20 @@ If you have had doubts if you'd be able to write code, but secretly have been wa
 ## Course materials
 
 - [Introduction slides](https://hannahmetzler.eu/R_intro/Course_overview/Overview.html)
-- [Lesson 1](https://hannahmetzler.eu/R_intro/Lesson_1/Lesson1.html) (Download [Quarto file](/Lesson_1/Lesson1.qmd))
-  - Basics of the Rstudio interface and coding
+- [Lesson 1](https://hannahmetzler.eu/R_intro/Lesson_1/Lesson1.html): Basics of the Rstudio interface and coding
 - [Preparation for Lesson 2](https://hannahmetzler.eu/R_intro/Lesson_2/Install_Git_GitHub/Git_Github.html). Please follow this to setp up Git and GitHub before our next session.
-- [Lesson 2](https://hannahmetzler.eu/R_intro/Lesson_2/Lesson2.html) (Download [Quarto file](/Lesson_2/Lesson2.qmd))
-  - Basics of data analysis: Commit & push to Git, read in and manipulate data, make a figure, make a Quarto Document. 
-- [Lesson 3](https://hannahmetzler.eu/R_intro/Lesson_3/Lesson3.html) (Download [Quarto file](/Lesson_3/Lesson3.qmd))
-  - Linear regression (including Git, plots, data cleaning, Quarto Document)
-- [Lesson 3 extension](https://hannahmetzler.eu/R_intro/Lesson_3b/Lesson3b.html) (Download [Quarto file](/Lesson_3b/Lesson3b.qmd))
-  - Here, I introduce more data wrangling functions, calculate a t-test, and an ANOVA. 
+- [Lesson 2](https://hannahmetzler.eu/R_intro/Lesson_2/Lesson2.html): Basics of data analysis: Commit & push to Git, read in and manipulate data, make a figure, make a Quarto Document. 
+- [Lesson 3](https://hannahmetzler.eu/R_intro/Lesson_3/Lesson3.html): Linear regression (including Git, plots, data cleaning, Quarto Document)
+- [Lesson 3 extension](https://hannahmetzler.eu/R_intro/Lesson_3b/Lesson3b.html): Here, I introduce more data wrangling functions, calculate a t-test, and an ANOVA. This is based on the same analysis project as lesson 3. 
+  
+### Quarto files for the course materials
+
+As an example for what you can do with Quarto files, here is the code I used to create the above course materials: 
+
+- [Lesson 1 Quarto file](/Lesson_1/Lesson1.qmd))
+- [Lesson 2 Quarto file](/Lesson_2/Lesson2.qmd)
+- [Lesson 3 Quarto file](/Lesson_3/Lesson3.qmd)
+- [Lesson 4 Quarto file](/Lesson_3b/Lesson3b.qmd))
 
 ## License
 
