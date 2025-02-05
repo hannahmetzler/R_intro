@@ -72,11 +72,11 @@ Before we create our first R-project, we need to talk about how to name files an
 
 -   Use names that work well for computers & people
 -   No spaces
--   be consistent with capitalisation (set a rule to make it easy to remember, like always use lowercase)
+-   Be consistent with capitalisation (set a rule to make it easy to remember, like always use lowercase)
 -   A full stop only before the file extension `data_file.csv`
--   use underscores (`_`) to separate parts of the file name, and dashes (`-`) to separate words in a section `"data_questionnaire_2021-11-15.xls"`
--   prefix a file name with an underscore to move it to the top of the list, or prefix all files with numbers to control their order
--   use YYYY-MM-DD format for dates so they sort in chronological order
+-   Use underscores (`_`) to separate parts of the file name, and dashes (`-`) to separate words in a section `"data_questionnaire_2021-11-15.xls"`
+-   Prefix a file name with an underscore to move it to the top of the list, or prefix all files with numbers to control their order
+-   Use YYYY-MM-DD format for dates so files sort in chronological order.
 
 #### Bad examples
 
@@ -100,8 +100,8 @@ Before we create our first R-project, we need to talk about how to name files an
 ### Navigating the file system: Terminal & bash
 
 -   File paths: forward or backward slash to divide sub folders: `directory/subdirectory/`
-    -   / on Linux and Mac
-    -    on Windows
+    -  / on Linux and Mac
+    -  \\ on Windows
 -   Your user accounts' main directory: `/Users/UserName/`, or on Windows: `C:\Users\Username\`
 -   A file on your Desktop: `/Users/UserName/Desktop/datafile.csv`
 -   You can navigate your file system via the **Terminal**.
@@ -136,7 +136,7 @@ I find it useful to have all my analysis projects in a common folder directly in
 ### Working Directory
 
 -   Folder of the project you are currently working on
--   Never change working directory in a script
+-   Never change the working directory in a script
 -   Your scripts should only reference three types of locations:
 
 | Where | Example |
@@ -157,22 +157,40 @@ I find it useful to have all my analysis projects in a common folder directly in
 -   Move back to your user directory using the shortcut
 :::
 
-## Setup Git & Github repository for your project
+## Setup Git & GitHub repository for your project
 
--   Backup, version control & collaboration
--   Did setup work for all of you?
--   We cover the absolute basics here, for more: <http://happygitwithr.com/>
--   Committing: creating a named version on your PC
--   Pushing: Uploading to GitHub
+- We cover the absolute basics here, for more: <http://happygitwithr.com/>
+- Do you all have Git Setup & a GitHub account?
+
+### What for?
+
+- Keeping your coding projects organized in one place
+- Backup your code & data
+- Version control: edits over time
+- Sharing & collaborating on code
+
+### How Git works
 
 ![](images/how_git_works.svg)
 
-We will now create a remote repository on Github, copy it to our local PCs, and then continue Lesson 2 in that local repository (=directory/folder).
+- Committing: creating a named/time stamped version on your PC
+- Pushing: Uploading to GitHub
+- Repository: directory/folder registered by Git
+
+
+::: callout-tip
+You don't technically need to use Git and GitHub to code your data analysis. You could just store your files locally. BUT: I strongly recommend you make a Git repository for every data analysis project. It really helps to keep things organized in one place, not lose your code, go back to earlier versions, share it, collaborate on it, and so on. To practice, we will create a repository for every lesson. 
+:::
 
 ### Create a remote git repository
 
+We will now create a remote repository on Github, copy it to our local PCs, and then continue Lesson 2 in that local repository.
+
 -   On <https://github.com/> click on `New` on the top left.
--   As shown in the screenshot below:
+- For later: you can navigate to your repositories via clicking on your profile and then choose `Your repositories` or `Repositories`. 
+
+As shown in the screenshot below:
+
 -   Name the repository
 -   Make it private
 -   Add a README file
@@ -197,7 +215,7 @@ knitr::include_graphics('images/copy_SSH_repo_link.png')
 
 2.  In Rstudio, in the Terminal:
 
--   Navigate to the directory where you want the R_introduction folder using `cd`. (I want it in my folder `AnalysisProjects`)
+-   Navigate to the directory where you put the R_introduction folder using `cd`. (I want it in my folder `AnalysisProjects`)
 -   `git clone` and paste your repository link:
 
 ```{r echo=FALSE}
@@ -220,7 +238,7 @@ There is now a folder with the name of the remote repository in the directory yo
 ::: callout-caution
 #### Exercise
 
-1.  Open a New Project in Rstudio: Choose `Create a project...` under the `File` menu.
+1.  Create a project in Rstudio: Choose `Create a project` (or `New Project ` in the `File` menu).
 
 ```{r, echo=FALSE}
 knitr::include_graphics('images/create_project.png')
@@ -234,27 +252,14 @@ knitr::include_graphics('images/new_project.png')
 ```
 :::
 
-From now on, you can double click this Rproject file in your `R_intro_lesson2` folder to directly open Rstudio in this folder.
+From now on, you can double click this Rproject file in your `R_intro_lesson2` folder to directly open Rstudio from this folder.
 
 ### Folder structure
-
-```{r, echo=FALSE}
-#| fig-width: 2
-knitr::include_graphics('images/folder_structure.png')
-```
-
--   Alternative/additional folder names could be:
-    -   tables
-    -   reports
-    -   output (tables, reports, ...)
-    -   raw_data: I recommend having a separate folder for the raw data
-    -   code = scripts
--   Plus any other project specific folders
 
 ::: callout-caution
 #### To do
 
-Create these subfolders:
+Create these folders inside the main project directory `R_intro_lesson2`: 
 
 -   data
 -   code
@@ -263,6 +268,16 @@ Create these subfolders:
 
 Download this [data file](https://github.com/hannahmetzler/R_intro/Lesson_2/data/pets.csv) from the course website and put it into the data folder. We'll be writing a script to analyse it during this session. If needed, you can also download it [here](https://github.com/hannahmetzler/R_intro_lesson2/blob/main/code/rintro_lesson2.R).
 :::
+
+
+-   Alternative/additional folder names in future projects could be:
+    -   tables
+    -   reports
+    -   output (tables, reports, ...)
+    -   raw_data: I recommend having a separate folder for the raw data
+    -   code = scripts
+-   Plus any other project specific folders
+
 
 ## Backup your project on GitHub
 
@@ -310,7 +325,7 @@ We will finally start coding!
 
 -   At the top of the script, we load all required packages.
 -   Lines with \# are comments, so R does not read them as code.
-    -   Keyboard shortcut to (un)comment a line or selection: `Ctrl+Shift+C` `Cmd+Shift+C`
+    -   Keyboard shortcut to (un)comment a line or selection: `Ctrl+Shift+C` / `Cmd+Shift+C`
 -   Lines ending with \#### are code blocks, that can be opened and closed. Use them to organize your script!
 -   To run a line in a script, press `Ctrl + Enter`
 -   To run an entire R-script: `Ctrl + Shift + Enter`

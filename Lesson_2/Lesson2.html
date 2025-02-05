@@ -89,10 +89,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#navigating-the-file-system-terminal-bash" id="toc-navigating-the-file-system-terminal-bash" class="nav-link" data-scroll-target="#navigating-the-file-system-terminal-bash"><span class="header-section-number">3.2</span> Navigating the file system: Terminal &amp; bash</a></li>
   <li><a href="#working-directory" id="toc-working-directory" class="nav-link" data-scroll-target="#working-directory"><span class="header-section-number">3.3</span> Working Directory</a></li>
   </ul></li>
-  <li><a href="#setup-git-github-repository-for-your-project" id="toc-setup-git-github-repository-for-your-project" class="nav-link" data-scroll-target="#setup-git-github-repository-for-your-project"><span class="header-section-number">4</span> Setup Git &amp; Github repository for your project</a>
+  <li><a href="#setup-git-github-repository-for-your-project" id="toc-setup-git-github-repository-for-your-project" class="nav-link" data-scroll-target="#setup-git-github-repository-for-your-project"><span class="header-section-number">4</span> Setup Git &amp; GitHub repository for your project</a>
   <ul class="collapse">
-  <li><a href="#create-a-remote-git-repository" id="toc-create-a-remote-git-repository" class="nav-link" data-scroll-target="#create-a-remote-git-repository"><span class="header-section-number">4.1</span> Create a remote git repository</a></li>
-  <li><a href="#clone-the-remote-git-repository-to-your-laptop" id="toc-clone-the-remote-git-repository-to-your-laptop" class="nav-link" data-scroll-target="#clone-the-remote-git-repository-to-your-laptop"><span class="header-section-number">4.2</span> Clone the remote Git Repository to your laptop</a></li>
+  <li><a href="#what-for" id="toc-what-for" class="nav-link" data-scroll-target="#what-for"><span class="header-section-number">4.1</span> What for?</a></li>
+  <li><a href="#how-git-works" id="toc-how-git-works" class="nav-link" data-scroll-target="#how-git-works"><span class="header-section-number">4.2</span> How Git works</a></li>
+  <li><a href="#create-a-remote-git-repository" id="toc-create-a-remote-git-repository" class="nav-link" data-scroll-target="#create-a-remote-git-repository"><span class="header-section-number">4.3</span> Create a remote git repository</a></li>
+  <li><a href="#clone-the-remote-git-repository-to-your-laptop" id="toc-clone-the-remote-git-repository-to-your-laptop" class="nav-link" data-scroll-target="#clone-the-remote-git-repository-to-your-laptop"><span class="header-section-number">4.4</span> Clone the remote Git Repository to your laptop</a></li>
   </ul></li>
   <li><a href="#organize-your-project" id="toc-organize-your-project" class="nav-link" data-scroll-target="#organize-your-project"><span class="header-section-number">5</span> Organize your project</a>
   <ul class="collapse">
@@ -224,11 +226,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>Use names that work well for computers &amp; people</li>
 <li>No spaces</li>
-<li>be consistent with capitalisation (set a rule to make it easy to remember, like always use lowercase)</li>
+<li>Be consistent with capitalisation (set a rule to make it easy to remember, like always use lowercase)</li>
 <li>A full stop only before the file extension <code>data_file.csv</code></li>
-<li>use underscores (<code>_</code>) to separate parts of the file name, and dashes (<code>-</code>) to separate words in a section <code>"data_questionnaire_2021-11-15.xls"</code></li>
-<li>prefix a file name with an underscore to move it to the top of the list, or prefix all files with numbers to control their order</li>
-<li>use YYYY-MM-DD format for dates so they sort in chronological order</li>
+<li>Use underscores (<code>_</code>) to separate parts of the file name, and dashes (<code>-</code>) to separate words in a section <code>"data_questionnaire_2021-11-15.xls"</code></li>
+<li>Prefix a file name with an underscore to move it to the top of the list, or prefix all files with numbers to control their order</li>
+<li>Use YYYY-MM-DD format for dates so files sort in chronological order.</li>
 </ul>
 <section id="bad-examples" class="level4" data-number="3.1.1">
 <h4 data-number="3.1.1" class="anchored" data-anchor-id="bad-examples"><span class="header-section-number">3.1.1</span> Bad examples</h4>
@@ -260,7 +262,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>File paths: forward or backward slash to divide sub folders: <code>directory/subdirectory/</code>
 <ul>
 <li>/ on Linux and Mac</li>
-<li>&nbsp;on Windows</li>
+<li>\ on Windows</li>
 </ul></li>
 <li>Your user accounts’ main directory: <code>/Users/UserName/</code>, or on Windows: <code>C:\Users\Username\</code></li>
 <li>A file on your Desktop: <code>/Users/UserName/Desktop/datafile.csv</code></li>
@@ -324,7 +326,7 @@ Tip
 <h3 data-number="3.3" class="anchored" data-anchor-id="working-directory"><span class="header-section-number">3.3</span> Working Directory</h3>
 <ul>
 <li>Folder of the project you are currently working on</li>
-<li>Never change working directory in a script</li>
+<li>Never change the working directory in a script</li>
 <li>Your scripts should only reference three types of locations:</li>
 </ul>
 <table class="table">
@@ -378,21 +380,51 @@ Exercise
 </section>
 </section>
 <section id="setup-git-github-repository-for-your-project" class="level2" data-number="4">
-<h2 data-number="4" class="anchored" data-anchor-id="setup-git-github-repository-for-your-project"><span class="header-section-number">4</span> Setup Git &amp; Github repository for your project</h2>
+<h2 data-number="4" class="anchored" data-anchor-id="setup-git-github-repository-for-your-project"><span class="header-section-number">4</span> Setup Git &amp; GitHub repository for your project</h2>
 <ul>
-<li>Backup, version control &amp; collaboration</li>
-<li>Did setup work for all of you?</li>
 <li>We cover the absolute basics here, for more: <a href="http://happygitwithr.com/" class="uri">http://happygitwithr.com/</a></li>
-<li>Committing: creating a named version on your PC</li>
-<li>Pushing: Uploading to GitHub</li>
+<li>Do you all have Git Setup &amp; a GitHub account?</li>
 </ul>
+<section id="what-for" class="level3" data-number="4.1">
+<h3 data-number="4.1" class="anchored" data-anchor-id="what-for"><span class="header-section-number">4.1</span> What for?</h3>
+<ul>
+<li>Keeping your coding projects organized in one place</li>
+<li>Backup your code &amp; data</li>
+<li>Version control: edits over time</li>
+<li>Sharing &amp; collaborating on code</li>
+</ul>
+</section>
+<section id="how-git-works" class="level3" data-number="4.2">
+<h3 data-number="4.2" class="anchored" data-anchor-id="how-git-works"><span class="header-section-number">4.2</span> How Git works</h3>
 <p><img src="images/how_git_works.svg" class="img-fluid"></p>
-<p>We will now create a remote repository on Github, copy it to our local PCs, and then continue Lesson 2 in that local repository (=directory/folder).</p>
-<section id="create-a-remote-git-repository" class="level3" data-number="4.1">
-<h3 data-number="4.1" class="anchored" data-anchor-id="create-a-remote-git-repository"><span class="header-section-number">4.1</span> Create a remote git repository</h3>
+<ul>
+<li>Committing: creating a named/time stamped version on your PC</li>
+<li>Pushing: Uploading to GitHub</li>
+<li>Repository: directory/folder registered by Git</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You don’t technically need to use Git and GitHub to code your data analysis. You could just store your files locally. BUT: I strongly recommend you make a Git repository for every data analysis project. It really helps to keep things organized in one place, not lose your code, go back to earlier versions, share it, collaborate on it, and so on. To practice, we will create a repository for every lesson.</p>
+</div>
+</div>
+</section>
+<section id="create-a-remote-git-repository" class="level3" data-number="4.3">
+<h3 data-number="4.3" class="anchored" data-anchor-id="create-a-remote-git-repository"><span class="header-section-number">4.3</span> Create a remote git repository</h3>
+<p>We will now create a remote repository on Github, copy it to our local PCs, and then continue Lesson 2 in that local repository.</p>
 <ul>
 <li>On <a href="https://github.com/" class="uri">https://github.com/</a> click on <code>New</code> on the top left.</li>
-<li>As shown in the screenshot below:</li>
+<li>For later: you can navigate to your repositories via clicking on your profile and then choose <code>Your repositories</code> or <code>Repositories</code>.</li>
+</ul>
+<p>As shown in the screenshot below:</p>
+<ul>
 <li>Name the repository</li>
 <li>Make it private</li>
 <li>Add a README file</li>
@@ -414,8 +446,8 @@ Exercise
 <li><code>.gitignore</code>: Hidden file that tells Git what not to upload to GitHub (e.g., figures)</li>
 </ul>
 </section>
-<section id="clone-the-remote-git-repository-to-your-laptop" class="level3" data-number="4.2">
-<h3 data-number="4.2" class="anchored" data-anchor-id="clone-the-remote-git-repository-to-your-laptop"><span class="header-section-number">4.2</span> Clone the remote Git Repository to your laptop</h3>
+<section id="clone-the-remote-git-repository-to-your-laptop" class="level3" data-number="4.4">
+<h3 data-number="4.4" class="anchored" data-anchor-id="clone-the-remote-git-repository-to-your-laptop"><span class="header-section-number">4.4</span> Clone the remote Git Repository to your laptop</h3>
 <ol type="1">
 <li>Copy the SSH link of your repository (for connecting it to Rstudio):</li>
 </ol>
@@ -432,7 +464,7 @@ Exercise
 <li>In Rstudio, in the Terminal:</li>
 </ol>
 <ul>
-<li>Navigate to the directory where you want the R_introduction folder using <code>cd</code>. (I want it in my folder <code>AnalysisProjects</code>)</li>
+<li>Navigate to the directory where you put the R_introduction folder using <code>cd</code>. (I want it in my folder <code>AnalysisProjects</code>)</li>
 <li><code>git clone</code> and paste your repository link:</li>
 </ul>
 <div class="cell">
@@ -470,7 +502,7 @@ Exercise
 </div>
 <div class="callout-body-container callout-body">
 <ol type="1">
-<li>Open a New Project in Rstudio: Choose <code>Create a project...</code> under the <code>File</code> menu.</li>
+<li>Create a project in Rstudio: Choose <code>Create a project</code> (or <code>New Project</code> in the <code>File</code> menu).</li>
 </ol>
 <div class="cell">
 <div class="cell-output-display">
@@ -496,30 +528,10 @@ Exercise
 </div>
 </div>
 </div>
-<p>From now on, you can double click this Rproject file in your <code>R_intro_lesson2</code> folder to directly open Rstudio in this folder.</p>
+<p>From now on, you can double click this Rproject file in your <code>R_intro_lesson2</code> folder to directly open Rstudio from this folder.</p>
 </section>
 <section id="folder-structure" class="level3" data-number="5.2">
 <h3 data-number="5.2" class="anchored" data-anchor-id="folder-structure"><span class="header-section-number">5.2</span> Folder structure</h3>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="images/folder_structure.png" class="img-fluid figure-img" width="111"></p>
-</figure>
-</div>
-</div>
-</div>
-<ul>
-<li>Alternative/additional folder names could be:
-<ul>
-<li>tables</li>
-<li>reports</li>
-<li>output (tables, reports, …)</li>
-<li>raw_data: I recommend having a separate folder for the raw data</li>
-<li>code = scripts</li>
-</ul></li>
-<li>Plus any other project specific folders</li>
-</ul>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -530,7 +542,7 @@ To do
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Create these subfolders:</p>
+<p>Create these folders inside the main project directory <code>R_intro_lesson2</code>:</p>
 <ul>
 <li>data</li>
 <li>code</li>
@@ -540,6 +552,17 @@ To do
 <p>Download this <a href="https://github.com/hannahmetzler/R_intro/Lesson_2/data/pets.csv">data file</a> from the course website and put it into the data folder. We’ll be writing a script to analyse it during this session. If needed, you can also download it <a href="https://github.com/hannahmetzler/R_intro_lesson2/blob/main/code/rintro_lesson2.R">here</a>.</p>
 </div>
 </div>
+<ul>
+<li>Alternative/additional folder names in future projects could be:
+<ul>
+<li>tables</li>
+<li>reports</li>
+<li>output (tables, reports, …)</li>
+<li>raw_data: I recommend having a separate folder for the raw data</li>
+<li>code = scripts</li>
+</ul></li>
+<li>Plus any other project specific folders</li>
+</ul>
 </section>
 </section>
 <section id="backup-your-project-on-github" class="level2" data-number="6">
@@ -620,7 +643,7 @@ To do
 <li>At the top of the script, we load all required packages.</li>
 <li>Lines with # are comments, so R does not read them as code.
 <ul>
-<li>Keyboard shortcut to (un)comment a line or selection: <code>Ctrl+Shift+C</code> <code>Cmd+Shift+C</code></li>
+<li>Keyboard shortcut to (un)comment a line or selection: <code>Ctrl+Shift+C</code> / <code>Cmd+Shift+C</code></li>
 </ul></li>
 <li>Lines ending with #### are code blocks, that can be opened and closed. Use them to organize your script!</li>
 <li>To run a line in a script, press <code>Ctrl + Enter</code></li>
@@ -957,7 +980,7 @@ Exercise
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Lesson2_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Lesson2_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -988,7 +1011,7 @@ Exercise
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Lesson2_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Lesson2_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
