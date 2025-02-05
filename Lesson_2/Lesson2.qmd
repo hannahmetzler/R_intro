@@ -165,9 +165,7 @@ I find it useful to have all my analysis projects in a common folder directly in
 -   Committing: creating a named version on your PC
 -   Pushing: Uploading to GitHub
 
-```{r echo=FALSE}
-knitr::include_graphics('../Lesson_1/images/how_git_works.svg')
-```
+![](images/how_git_works.svg)
 
 We will now create a remote repository on Github, copy it to our local PCs, and then continue Lesson 2 in that local repository (=directory/folder).
 
