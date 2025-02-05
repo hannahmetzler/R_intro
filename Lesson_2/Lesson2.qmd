@@ -330,6 +330,8 @@ We will finally start coding!
 -   To run a line in a script, press `Ctrl + Enter`
 -   To run an entire R-script: `Ctrl + Shift + Enter`
 
+::: callout-caution
+# To do
 Write and run the code below:
 
 ```{r, results = FALSE, eval = F}
@@ -338,14 +340,17 @@ library(tidyverse)
 ```
 
 -   To read in the data, we use `read_csv()` from the package readr.
--   The working directory is in the root folder, so we need to first go into the data folder: `"data/pets.csv"`
--   The last part `col_types = "cffiid"` defines the type of variable - we will get to this below.
 
 ```{r, results=FALSE}
 ## READ IN DATA AND ORGANIZE ####
 # Read in data
 data = readr::read_csv("data/pets.csv",  col_types = "cffiid")
 ```
+:::
+
+-   The working directory is in the root folder, so we need to first indicate that the datafile is in the data folder: `"data/pets.csv"`
+-   The last part `col_types = "cffiid"` defines the type of variable - we will get to this below.
+
 
 ### Look at the data
 
@@ -361,13 +366,15 @@ tail(data) # last rows
 -   `dog` and `ferret` are levels of the variable `pet`
 -   `UK` and `NL` are levels of the variable `country`
 
-Now, have a look at the data using these functions (from basic R):
+Now, we'll have a look at the data using these functions (from basic R):
 
 -   dim(): number of rows and columns
 -   head(): print the first 6 rows
 -   tail(): print the last 6 rows
 -   xtabs(): how many data points exist for each level of a variable
 
+::: callout-caution
+# To do
 Write and then run the code below. After each written line, use `Ctrl + Enter` to run it.
 
 ```{r, results=FALSE}
@@ -377,6 +384,7 @@ head(data)
 tail(data) 
 xtabs(~pet, data) 
 ```
+:::
 
 All of this is basic R. In addition, we can use functions from packages. Using `glimpse()` from dplyr gives you an overview of the data:
 
@@ -409,7 +417,8 @@ data_cats = data %>%
   dplyr::filter(pet == 'cat')
 ```
 
-We'll use dplyr (the third way):
+We'll use dplyr (the third way). dplyr is a package from the Tidyverse for 
+
 
 ```{r}
 # Select only cats
@@ -428,16 +437,21 @@ Here is a step by step explanation:
 -   `cat`: level of the variable
 -   `==` is a marker of relationship (like \<, \>)
 
-Write down and run this code. You can use these keyboard shortcuts:
+::: callout-caution
+# Write down and run the code for selecting only cats data. 
+
+You can use these keyboard shortcuts:
 
 -   `<-` for assigning: `Alt + -` or `Option + -`
 -   Keyboard shortcut:`%>%` pipe: `Shift + Ctrl + M` or `Cmd + Shift + M`
+:::
 
 Let's look at the top rows:
 
 ```{r}
 head(data_cats)
 ```
+
 
 There are only rows with cats left.
 
@@ -450,6 +464,13 @@ Look at the new data frame `data_cats` with all the functions you used above for
 ## Make a figure with ggplot2
 
 We'll make a box plot showing the weight of the different pets. `ggplot2` is a package from the Tidyverse that is very flexible for making pretty plots.
+
+Plots in ggplot are created by adding elements on top of each other. See the vignette: We will use data, mapping and a layer for a box plot for now.  
+
+```{r, eval = F}
+vignette("ggplot2")
+```
+
 
 Start again with a section header (####).
 
@@ -465,13 +486,13 @@ Step by step explanations:
 
 -   Every plot in ggplot2 is initiated with the call `ggplot()`
 -   Next comes the data frame (here `data`)
--   Then we set the aesthetics (`aes()`), here only the variable to put on the x- and y-axis.
+-   Then we map the data to the aesthetics (`aes()`) of the figure: here only which variable onto the x- and y-axis.
 -   For ggplot2, we use `+` to connect lines (like `%>%` above for dplyr)
--   In line 2 comes the type of plot (boxplot). Most plots in ggplot2 with `geom_` plus the type of plot, so here `geom_boxplot`.
+-   In line 2 comes the type of plot (box plot). Most plots in ggplot2 with `geom_` plus the type of plot, so here `geom_boxplot`.
 -   We store the plot in the variable `data.plot`.
 -   We print out `data.plot` to see the plot.
 
-It is very easy to make this plot pretty. Below:
+It is very easy to make this plot pretty. With the code below: 
 
 -   We fill each box with a colour by including `fill = pet` in the aesthetics.
 -   We change the design of the entire plot using one of the default themes: `theme_bw()`

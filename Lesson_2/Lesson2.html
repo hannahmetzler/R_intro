@@ -649,6 +649,16 @@ To do
 <li>To run a line in a script, press <code>Ctrl + Enter</code></li>
 <li>To run an entire R-script: <code>Ctrl + Shift + Enter</code></li>
 </ul>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+To do
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Write and run the code below:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="do">## LOAD PACKAGES ####</span></span>
@@ -656,14 +666,18 @@ To do
 </div>
 <ul>
 <li>To read in the data, we use <code>read_csv()</code> from the package readr.</li>
-<li>The working directory is in the root folder, so we need to first go into the data folder: <code>"data/pets.csv"</code></li>
-<li>The last part <code>col_types = "cffiid"</code> defines the type of variable - we will get to this below.</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">## READ IN DATA AND ORGANIZE ####</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in data</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>data <span class="ot">=</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"data/pets.csv"</span>,  <span class="at">col_types =</span> <span class="st">"cffiid"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
+</div>
+<ul>
+<li>The working directory is in the root folder, so we need to first indicate that the datafile is in the data folder: <code>"data/pets.csv"</code></li>
+<li>The last part <code>col_types = "cffiid"</code> defines the type of variable - we will get to this below.</li>
+</ul>
 <section id="look-at-the-data" class="level3" data-number="7.1">
 <h3 data-number="7.1" class="anchored" data-anchor-id="look-at-the-data"><span class="header-section-number">7.1</span> Look at the data</h3>
 <p>The first and last rows of the data frame:</p>
@@ -807,13 +821,23 @@ To do
 <li><code>dog</code> and <code>ferret</code> are levels of the variable <code>pet</code></li>
 <li><code>UK</code> and <code>NL</code> are levels of the variable <code>country</code></li>
 </ul>
-<p>Now, have a look at the data using these functions (from basic R):</p>
+<p>Now, we’ll have a look at the data using these functions (from basic R):</p>
 <ul>
 <li>dim(): number of rows and columns</li>
 <li>head(): print the first 6 rows</li>
 <li>tail(): print the last 6 rows</li>
 <li>xtabs(): how many data points exist for each level of a variable</li>
 </ul>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+To do
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Write and then run the code below. After each written line, use <code>Ctrl + Enter</code> to run it.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at data</span></span>
@@ -821,6 +845,8 @@ To do
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data) </span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(data) </span>
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">xtabs</span>(<span class="sc">~</span>pet, data) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
 </div>
 <p>All of this is basic R. In addition, we can use functions from packages. Using <code>glimpse()</code> from dplyr gives you an overview of the data:</p>
 <div class="cell">
@@ -859,7 +885,7 @@ $ weight  &lt;dbl&gt; 19.78932, 20.01422, 19.14863, 19.56953, 21.39259, 21.31880
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>data_cats <span class="ot">=</span> data <span class="sc">%&gt;%</span> </span>
 <span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(pet <span class="sc">==</span> <span class="st">'cat'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We’ll use dplyr (the third way):</p>
+<p>We’ll use dplyr (the third way). dplyr is a package from the Tidyverse for</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select only cats</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>data_cats <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
@@ -876,11 +902,23 @@ $ weight  &lt;dbl&gt; 19.78932, 20.01422, 19.14863, 19.56953, 21.39259, 21.31880
 <li><code>cat</code>: level of the variable</li>
 <li><code>==</code> is a marker of relationship (like &lt;, &gt;)</li>
 </ul>
-<p>Write down and run this code. You can use these keyboard shortcuts:</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Write down and run the code for selecting only cats data.
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can use these keyboard shortcuts:</p>
 <ul>
 <li><code>&lt;-</code> for assigning: <code>Alt + -</code> or <code>Option + -</code></li>
 <li>Keyboard shortcut:<code>%&gt;%</code> pipe: <code>Shift + Ctrl + M</code> or <code>Cmd + Shift + M</code></li>
 </ul>
+</div>
+</div>
 <p>Let’s look at the top rows:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data_cats)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -970,44 +1008,17 @@ Exercise
 <section id="make-a-figure-with-ggplot2" class="level2" data-number="8">
 <h2 data-number="8" class="anchored" data-anchor-id="make-a-figure-with-ggplot2"><span class="header-section-number">8</span> Make a figure with ggplot2</h2>
 <p>We’ll make a box plot showing the weight of the different pets. <code>ggplot2</code> is a package from the Tidyverse that is very flexible for making pretty plots.</p>
+<p>Plots in ggplot are created by adding elements on top of each other. See the vignette: We will use data, mapping and a layer for a box plot for now.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vignette</span>(<span class="st">"ggplot2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>Start again with a section header (####).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="do">## MAKE FIGURES ####</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Weight by pet</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>data.plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> pet, <span class="at">y =</span> weight)) <span class="sc">+</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>data.plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Lesson2_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Step by step explanations:</p>
-<ul>
-<li>Every plot in ggplot2 is initiated with the call <code>ggplot()</code></li>
-<li>Next comes the data frame (here <code>data</code>)</li>
-<li>Then we set the aesthetics (<code>aes()</code>), here only the variable to put on the x- and y-axis.</li>
-<li>For ggplot2, we use <code>+</code> to connect lines (like <code>%&gt;%</code> above for dplyr)</li>
-<li>In line 2 comes the type of plot (boxplot). Most plots in ggplot2 with <code>geom_</code> plus the type of plot, so here <code>geom_boxplot</code>.</li>
-<li>We store the plot in the variable <code>data.plot</code>.</li>
-<li>We print out <code>data.plot</code> to see the plot.</li>
-</ul>
-<p>It is very easy to make this plot pretty. Below:</p>
-<ul>
-<li>We fill each box with a colour by including <code>fill = pet</code> in the aesthetics.</li>
-<li>We change the design of the entire plot using one of the default themes: <code>theme_bw()</code></li>
-<li>We add a title using <code>ggtitle()</code></li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pretty plot</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>data.plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> pet, <span class="at">y =</span> weight, <span class="at">fill =</span> pet)) <span class="sc">+</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()<span class="sc">+</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Weight by pet"</span>)</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>data.plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="do">## MAKE FIGURES ####</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Weight by pet</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>data.plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> pet, <span class="at">y =</span> weight)) <span class="sc">+</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>data.plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1016,10 +1027,41 @@ Exercise
 </div>
 </div>
 </div>
+<p>Step by step explanations:</p>
+<ul>
+<li>Every plot in ggplot2 is initiated with the call <code>ggplot()</code></li>
+<li>Next comes the data frame (here <code>data</code>)</li>
+<li>Then we map the data to the aesthetics (<code>aes()</code>) of the figure: here only which variable onto the x- and y-axis.</li>
+<li>For ggplot2, we use <code>+</code> to connect lines (like <code>%&gt;%</code> above for dplyr)</li>
+<li>In line 2 comes the type of plot (box plot). Most plots in ggplot2 with <code>geom_</code> plus the type of plot, so here <code>geom_boxplot</code>.</li>
+<li>We store the plot in the variable <code>data.plot</code>.</li>
+<li>We print out <code>data.plot</code> to see the plot.</li>
+</ul>
+<p>It is very easy to make this plot pretty. With the code below:</p>
+<ul>
+<li>We fill each box with a colour by including <code>fill = pet</code> in the aesthetics.</li>
+<li>We change the design of the entire plot using one of the default themes: <code>theme_bw()</code></li>
+<li>We add a title using <code>ggtitle()</code></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pretty plot</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>data.plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> pet, <span class="at">y =</span> weight, <span class="at">fill =</span> pet)) <span class="sc">+</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()<span class="sc">+</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Weight by pet"</span>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>data.plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Lesson2_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 <p>To save the plot to a file to use in your paper, use <code>ggsave</code> to save it in our subfolder for figures:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># save the plot</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">'figures/boxplot_pets_weight.png'</span>, <span class="at">plot =</span> data.plot, <span class="at">width =</span> <span class="dv">6</span>, <span class="at">height =</span> <span class="dv">4</span>, <span class="at">dpi =</span> <span class="dv">300</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># save the plot</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">'figures/boxplot_pets_weight.png'</span>, <span class="at">plot =</span> data.plot, <span class="at">width =</span> <span class="dv">6</span>, <span class="at">height =</span> <span class="dv">4</span>, <span class="at">dpi =</span> <span class="dv">300</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>Arguments in order:
@@ -1133,21 +1175,21 @@ Exercise
 <li>Quarto files directly run in the folder where they are saved, so here directly in the write_up folder.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"lesson2_environment.RData"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"lesson2_environment.RData"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>Start writing normal text (as below) in your document. Using # turns text into a title in Markdown.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Data</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>Here is a look at our two data frames. First is the one we read in, the second is our subset with just the cat's data. </span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="fu"># Figure</span></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>Here's a figure of the weight of different pets in the dataset.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Data</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>Here is a look at our two data frames. First is the one we read in, the second is our subset with just the cat's data. </span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="fu"># Figure</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>Here's a figure of the weight of different pets in the dataset.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>Now, we will fill in code chunks to present our data and figure. Use <code>Ctrl+Alt+I</code> to insert them in the right places.</li>
