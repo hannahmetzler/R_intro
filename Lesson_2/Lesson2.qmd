@@ -4,7 +4,7 @@ subtitle: "Course website: https://hannahmetzler.eu/R_intro/"
 author: "Hannah Metzler"
 date: "February 6 2025"
 format: 
-  html:
+  html: 
     theme: flatly
     toc: true # generate a table of content
     number-sections: true
@@ -15,6 +15,7 @@ execute:
   warning: false
 echo: true
 ---
+
 
 ## Quick repetition of lesson 1
 
@@ -171,7 +172,7 @@ I find it useful to have all my analysis projects in a common folder directly in
 
 ### How Git works
 
-![](images/how_git_works.svg)
+<!-- ![](images/how_git_works.svg) -->
 
 - Committing: creating a named/time stamped version on your PC
 - Pushing: Uploading to GitHub
@@ -625,7 +626,7 @@ knitr::include_graphics('images/render.png')
 ```
 
 -   You can simply switch the format to `format: docx` at the top, then render again as a Word document.
--   format: pdf would also work, but takes a bit longer the first time because of installations.
+-   PDF would also work, but requires installing a version of Latex (software that renders PDFs) the first time you render as PDF. Via your Terminal, you need to run this code to install a tiny version of Latex: `quarto install tinytex`
 
 ::: callout-tip
 You can write a lot of your code directly in Quarto Documents, allowing to combine your results (tables, figures) with interpretations directly in the same document. Lead through your entire analyses step by step. If a step needs a lot of code, move that code to a script in the code folder, and call the script from your Quarto document using the function `source()`. For example, you could first call a script that cleans the data, then make figures and run statistical tests directly in the Quarto Document.
