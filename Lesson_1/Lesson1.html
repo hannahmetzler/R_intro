@@ -343,8 +343,8 @@ The period, known for being a bit of a downer, said,
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">ctl =</span> <span class="st">"Control Condition"</span>, <span class="at">exp1 =</span> <span class="st">"Experimental Condition 1"</span>, <span class="at">exp2 =</span> <span class="st">"Experimental Condition 2"</span>)</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># but b is much easier to read</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">ctl  =</span> <span class="st">"Control Condition"</span>, </span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">exp1 =</span> <span class="st">"Experimental Condition 1"</span>, </span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">ctl  =</span> <span class="st">"Control Condition"</span>,</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">exp1 =</span> <span class="st">"Experimental Condition 1"</span>,</span>
 <span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">exp2 =</span> <span class="st">"Experimental Condition 2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>It is often useful to break up long functions onto several lines.</p>
@@ -414,32 +414,32 @@ Exercise
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1]  0.6061051  0.4321733 -0.1889548  0.6679802 -1.5031876  1.0004450
- [7] -0.4114997  0.8811687 -1.1971904  0.2876368</code></pre>
+<pre><code> [1]  1.19666964  1.25831812 -0.66908030  0.57525420  1.43774523  0.22813313
+ [7] -0.36822080 -0.44683899  1.05864313  0.09810682</code></pre>
 </div>
 </div>
 <p>If you want 10 numbers from a normal distribution with a mean of 100 (we do not need argument names here):</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] 100.88056  98.90223  99.82162  97.42136  98.45574 100.31334  99.91625
- [8]  99.71690  99.59208 100.44087</code></pre>
+<pre><code> [1] 101.05053 101.23766 100.28200  98.60694 100.07867  99.06495  98.67434
+ [8] 100.12002  99.99288 100.62092</code></pre>
 </div>
 </div>
 <p>This gives you the same result, it’s just less efficient for writing:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1]  99.07934 100.62567  98.74141 100.90279 101.08689 101.77659  99.10073
- [8] 100.45341  98.85354  99.29914</code></pre>
+<pre><code> [1] 100.63484  99.53612 102.16187 100.46130 100.23255  98.50248 101.81798
+ [8]  98.11211  97.64121 101.28468</code></pre>
 </div>
 </div>
 <p>We need names if we change the third argument, without writing out the second:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">sd =</span> <span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1]  22.104209 -69.040373  42.670244  17.403567  -9.584960 -19.421428
- [7] -23.712470   8.020084 -68.636567   2.192962</code></pre>
+<pre><code> [1]  36.739825  -2.308466   3.645196 -38.362880 -79.673404  71.908489
+ [7] -91.656546  51.607963 -40.305533  -3.995286</code></pre>
 </div>
 </div>
 <p>Functions with a list of options after an argument: the default value is the first option. The function <code>power.t.test()</code> helps you make calculations around statistical power of t-tests. Its help entry looks like this:</p>
@@ -600,7 +600,7 @@ Exercise
 <li>Using jargon like “concatenate vectors in R” helps</li>
 <li>You’ll get more useful results with practice</li>
 <li>Use R, Rstats, or the name of the package.</li>
-<li>&lt;www.rseek.org&gt; only shows R-specific results</li>
+<li><a href="">www.rseek.org</a> only shows R-specific results</li>
 </ul>
 </section>
 <section id="llm-models-chatgpt-claude-gemini" class="level3" data-number="6.3">
@@ -611,7 +611,7 @@ Exercise
 <li>Some can even execute code (ChatGPT, Claude).</li>
 <li>It helps to know the basics of coding to understand how to use their output.</li>
 <li>But then, these models make you as good as an average data scientist.</li>
-<li>Checkout https://hannahmetzler.eu/ai_skills for tips about using LLMs.</li>
+<li>Checkout <a href="">https://hannahmetzler.eu/ai_skills</a> for tips about using LLMs.</li>
 </ul>
 </section>
 <section id="vignettes" class="level3" data-number="6.4">

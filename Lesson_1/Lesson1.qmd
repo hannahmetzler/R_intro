@@ -158,8 +158,8 @@ R mostly ignores them. Use them to organize your code.
 a <- list(ctl = "Control Condition", exp1 = "Experimental Condition 1", exp2 = "Experimental Condition 2")
 
 # but b is much easier to read
-b <- list(ctl  = "Control Condition", 
-          exp1 = "Experimental Condition 1", 
+b <- list(ctl  = "Control Condition",
+          exp1 = "Experimental Condition 1",
           exp2 = "Experimental Condition 2")
 ```
 
@@ -379,7 +379,7 @@ Package is not loaded, or you don't know which package the function belongs to: 
 - Using jargon like "concatenate vectors in R" helps
 - You'll get more useful results with practice
 - Use R, Rstats, or the name of the package.
-- <www.rseek.org> only shows R-specific results
+- [www.rseek.org]() only shows R-specific results
 
 ### LLM models (ChatGPT, Claude, Gemini)
 
@@ -388,7 +388,7 @@ Package is not loaded, or you don't know which package the function belongs to: 
 - Some can even execute code (ChatGPT, Claude).
 - It helps to know the basics of coding to understand how to use their output. 
 - But then, these models make you as good as an average data scientist.
-- Checkout https://hannahmetzler.eu/ai_skills for tips about using LLMs.
+- Checkout [https://hannahmetzler.eu/ai_skills]() for tips about using LLMs.
 
 ### Vignettes
 
