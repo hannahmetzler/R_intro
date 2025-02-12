@@ -219,14 +219,14 @@ To run a linear regression, our dependent variable needs to be normally distribu
 ```{r, histogram nv,  echo=F, fig.height=3.5}
 data_normal = data.frame(narrow = rnorm(1000000, sd = 1.5), broad = rnorm(1000000, mean = 0, sd = 3.5))
 p1 = ggplot(data_normal, aes(x = narrow)) +
-            geom_histogram(aes(y=..density..), bins = 40)+
+            geom_histogram(aes(y=after_stat(density)), bins = 40)+
   geom_density(colour = "blue")+
   geom_vline(aes(xintercept=0), colour="blue", linetype="dashed")+
   xlim(c(-10, 10))+
   ylim(c(0, 0.3))
 
 p2 = ggplot(data_normal, aes(x = broad)) +
-            geom_histogram(aes(y=..density..), bins = 40)+
+            geom_histogram(aes(y=after_stat(density)), bins = 40)+
   geom_density(colour = "blue")+
   geom_vline(aes(xintercept=0), colour="blue", linetype="dashed")+
   xlim(c(-10, 10))+
@@ -239,14 +239,14 @@ plot_grid(p1, p2)
 ```{r, histogram less observations, echo=F, fig.height=3.5}
 data_normal = data.frame(narrow = rnorm(100, sd = 1.5), broad = rnorm(100, mean = 0, sd = 3.5))
 p1 = ggplot(data_normal, aes(x = narrow)) +
-            geom_histogram(aes(y=..density..), bins = 40)+
+            geom_histogram(aes(y=after_stat(density)), bins = 40)+
   geom_density(colour = "blue")+
   geom_vline(aes(xintercept=0), colour="blue", linetype="dashed")+
    xlim(c(-10, 10))+
   ylim(c(0, 0.3))
 
 p2 = ggplot(data_normal, aes(x = broad)) +
-            geom_histogram(aes(y=..density..), bins = 40)+
+            geom_histogram(aes(y=after_stat(density)), bins = 40)+
   geom_density(colour = "blue")+
   geom_vline(aes(xintercept=0), colour="blue", linetype="dashed")+
    xlim(c(-10, 10))+
@@ -504,7 +504,7 @@ Let's pick a specific data point (red square in the Figure below).
 -   In red, you see the x and y values for the data point (y=200g, x = 12 days).
 -   In yellow, you see the intercept a: the weight (y) when days (x) are 0.
 -   In purple, you see the slope b, telling you how much weight a chick gains on average on 1 day (here from day 5 to 6)
--   In green, you see the residual for the data point: The difference between model prediction and the actual data.
+-   In green, you see the residual for the data point: The difference between the model prediction and the actual data point.
 
 ```{r, echo = F, fig.height=7}
 knitr::include_graphics('images/scatterplot_labels.svg')
@@ -591,7 +591,7 @@ summary(diet.lm)
 ```
 
 -   The intercept a is 102 g: the mean weight of chicks eating Diet 1.
--   The slope b is 19.97 g: the mean weight difference between the Diets, Diet 2 chicks are this much heavier.
+-   The slope b is 19.97 g: the mean weight difference between the Diets. On average, Diet 2 chicks are this much heavier.
 
 ## Statistics script
 
@@ -672,7 +672,7 @@ We repeat the steps from the last lesson (see Lesson 2 for more explanation):
 
 -   Save your current working environment to your write-up folder as `lesson3_environment`.
 -   Open a Quarto Document.
--   Delete everything below the chunk at the top that starts and ends with `---`.
+-   Delete everything below the chunk at the top (the `YAML`) that starts and ends with `---`.
 -   Save the Quarto document in your write_up folder as `Lesson3_Report`.
 -   After this, insert a code chunk (Shortcut: `Ctrl/Cmd + Alt + I`) and enter the code below to load your environment.
 
@@ -684,20 +684,17 @@ load('lesson3_environment.RData')
 </code></pre>
 ```
 
--   Add `echo = FALSE` (or only the F) in the curly brackets after r: \`\`\``{r, echo = FALSE}`. This let's R know you do not want to print out (echo) the code in the report, but only its results.
+-   Add `echo = FALSE` (or only the F) in the curly brackets after r: \`\`\``{r, echo = FALSE}`. This let's R know you do not want to print out this code chunk in the report, but only its results.
 
--   Now add sections to your report, for example: <br><br>
+Now add sections to your report, for example:
 
 -   Introduction
-
 -   Results
-
     -   Prevalence by Year
     -   Prevalence by Sex
-
 -   Conclusions
 
--   Now you can write something in each section. For example:
+Now you can write something in each section. For example:
 
 ```{Markdown, eval = F}
 # Introduction
@@ -708,7 +705,7 @@ We used linear regression to analyse the change of the name over time, and the
 difference of the name's popularity between men and women. 
 ```
 
--   In the Results sections, you can include the figures and model results by calling the objects within a code chunk:
+In the Results sections, you can include the figures and model results by calling the objects within a code chunk:
 
 ```{Markdown, eval = F}
 # Results
@@ -749,6 +746,7 @@ sex.lm_sum
 -   You can continue describing your results and the conclusion at home.
 -   To compile the Quarto report, click `Render` at the top of the Quarto document.
 -   You can change the format from html, to docx, or pdf.
+- At the end, don't forget to commit and push to GitHub. 
 
 ## References & Resources
 

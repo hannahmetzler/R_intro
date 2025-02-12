@@ -889,7 +889,7 @@ To do
 <li>In red, you see the x and y values for the data point (y=200g, x = 12 days).</li>
 <li>In yellow, you see the intercept a: the weight (y) when days (x) are 0.</li>
 <li>In purple, you see the slope b, telling you how much weight a chick gains on average on 1 day (here from day 5 to 6)</li>
-<li>In green, you see the residual for the data point: The difference between model prediction and the actual data.</li>
+<li>In green, you see the residual for the data point: The difference between the model prediction and the actual data point.</li>
 </ul>
 <div class="cell">
 <div class="cell-output-display">
@@ -1051,7 +1051,7 @@ F-statistic: 7.971 on 1 and 338 DF,  p-value: 0.005034</code></pre>
 </div>
 <ul>
 <li>The intercept a is 102 g: the mean weight of chicks eating Diet 1.</li>
-<li>The slope b is 19.97 g: the mean weight difference between the Diets, Diet 2 chicks are this much heavier.</li>
+<li>The slope b is 19.97 g: the mean weight difference between the Diets. On average, Diet 2 chicks are this much heavier.</li>
 </ul>
 </section>
 </section>
@@ -1190,7 +1190,7 @@ To do
 <ul>
 <li>Save your current working environment to your write-up folder as <code>lesson3_environment</code>.</li>
 <li>Open a Quarto Document.</li>
-<li>Delete everything below the chunk at the top that starts and ends with <code>---</code>.</li>
+<li>Delete everything below the chunk at the top (the <code>YAML</code>) that starts and ends with <code>---</code>.</li>
 <li>Save the Quarto document in your write_up folder as <code>Lesson3_Report</code>.</li>
 <li>After this, insert a code chunk (Shortcut: <code>Ctrl/Cmd + Alt + I</code>) and enter the code below to load your environment.</li>
 </ul>
@@ -1200,17 +1200,19 @@ load('lesson3_environment.RData')
 ```
 </code></pre>
 <ul>
-<li><p>Add <code>echo = FALSE</code> (or only the F) in the curly brackets after r: ```<code>{r, echo = FALSE}</code>. This let’s R know you do not want to print out (echo) the code in the report, but only its results.</p></li>
-<li><p>Now add sections to your report, for example: <br><br></p></li>
-<li><p>Introduction</p></li>
-<li><p>Results</p>
+<li>Add <code>echo = FALSE</code> (or only the F) in the curly brackets after r: ```<code>{r, echo = FALSE}</code>. This let’s R know you do not want to print out this code chunk in the report, but only its results.</li>
+</ul>
+<p>Now add sections to your report, for example:</p>
+<ul>
+<li>Introduction</li>
+<li>Results
 <ul>
 <li>Prevalence by Year</li>
 <li>Prevalence by Sex</li>
 </ul></li>
-<li><p>Conclusions</p></li>
-<li><p>Now you can write something in each section. For example:</p></li>
+<li>Conclusions</li>
 </ul>
+<p>Now you can write something in each section. For example:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Introduction</span></span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1219,9 +1221,7 @@ load('lesson3_environment.RData')
 <span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>We used linear regression to analyse the change of the name over time, and the </span>
 <span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>difference of the name's popularity between men and women. </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<ul>
-<li>In the Results sections, you can include the figures and model results by calling the objects within a code chunk:</li>
-</ul>
+<p>In the Results sections, you can include the figures and model results by calling the objects within a code chunk:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Results</span></span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1254,6 +1254,7 @@ sex.lm_sum
 <li>You can continue describing your results and the conclusion at home.</li>
 <li>To compile the Quarto report, click <code>Render</code> at the top of the Quarto document.</li>
 <li>You can change the format from html, to docx, or pdf.</li>
+<li>At the end, don’t forget to commit and push to GitHub.</li>
 </ul>
 </section>
 <section id="references-resources" class="level2" data-number="10">
