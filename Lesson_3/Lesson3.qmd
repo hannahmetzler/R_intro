@@ -9,7 +9,7 @@ format:
     toc: true # generate a table of content
     number-sections: true
     df-print: kable #format of data frames
-editor: visual
+editor: source
 cache: true
 execute: 
   warning: false
@@ -34,14 +34,17 @@ library(svglite)
 
 ## Set up your work space
 
-1.  Make a remote git repository on GitHub (e.g. “rintro_lesson3”)
-2.  Copy the SSH Link
-3.  In the Terminal, navigate to your folder for this R course using `cd`.
-4.  Type `git clone` and paste your SSH link.
-5.  In the now local folder of the repository, create sub folders (e.g. “data”, “figures”, “code”, “write_up”).
-6.  Put the [data file](https://github.com/hannahmetzler/R_intro_lesson3/blob/main/data/lesson2_data_babynames.txt) for this lesson in your “data” folder.
-7.  Make a new R Project based in your main directory folder (e.g. “rintro_lesson3”).
-8.  Commit & Push to GitHub.
+1.  On [https://github.com]():
+    1.  Make a remote git repository (e.g. “rintro_lesson3”)
+    2.  Copy the SSH link.
+2.  Clone the remote repository via the Terminal (quicker) or the Rstudio interface:
+    1.  Terminal: navigate to your folder for this R course using `cd`. Type `git clone` and paste your SSH link.
+    2.  Interface: Create a new project & choose `Version Control`, then `Git`. Under `Clon Git Repository`, enter your SSH link.
+3.  Then organize your repository:
+    1.  In the now local folder of the repository, create sub folders (e.g. “data”, “figures”, “code”, “write_up”).
+    2.  Put the [data file](https://github.com/hannahmetzler/R_intro_lesson3/blob/main/data/lesson2_data_babynames.txt) for this lesson in your “data” folder.
+    3.  Make a new R Project based in your main directory folder (e.g. “rintro_lesson3”).
+    4.  Commit & Push to GitHub.
 
 ## Analysis project for Lesson 3
 
@@ -72,27 +75,44 @@ Create a script and save it in the `code` folder as `01_cleaning.R`.
 -   We only need the packages `dplyr` and `readr` for now (or the meta-package tidyverse)
 -   Shortcut to run a line of code from a script: `Ctrl/Strg/Cmd + Enter`
 
-```{r, eval = F}
+```{r}
 ## LOAD PACKAGES ####
 library(dplyr)
 library(readr)
 ```
 
--   Next, we read in data, with the same function as last time but for .txt files.
--   The argument col_types defines what kind of variables.
+-   Next, we read in data, with the same function as last time but for .txt files. You'll see a message because we did not specify the variable type for the columns. 
 
 ```{r}
 data = readr::read_tsv("data/lesson2_data_babynames.txt")
 ```
 
-To check if the file was read correctly you can use `head(data)` in the Console.
+- To check if the file was read correctly you can use `head(data)` in the Console. 
 
 ```{r}
 head(data)
 ```
+- Use `summary(data`) and `glimpse(data)` to see how the output changes before and after changing the column type. 
 
--   Check if your own name exists in the dataset using the function `filter()`:
-    -   Check the function in the help: `?dplyr::filter` (Description, Usage & Examples).
+```{r, eval=F}
+summary(data)
+glimpse(data)
+```
+
+
+- To change a columns' variable type, you can use the argument `col_types` when reading in the data (see ?read_tsv): 
+
+```{r}
+data = readr::read_tsv("data/lesson2_data_babynames.txt", col_types = 'iffin')
+```
+
+```{r, eval=F}
+summary(data)
+glimpse(data)
+```
+
+-   Check if your own name exists in the data set using `filter()` from dplyr:
+    -   Check the help entry: `?dplyr::filter` (Description, Usage & Examples).
         -   The first argument is for the data frame.
         -   The second argument (`...`) is for the expression that defines our condition for rows we want to keep.
         -   The Examples section shows you how to use the function.
@@ -102,13 +122,13 @@ head(data)
 data_clean = dplyr::filter(data, name == "Page")
 ```
 
-Check if it worked, for example using `head()` on the new data frame
+- Check the filtered data frame, for example using `head()`. 
 
 ```{r}
 head(data_clean)
 ```
 
-If this is empty, your name does not exist in the US names data set. Simply stay with the name "Page".
+- If this is empty, your name does not exist in the US names data set. Simply stay with the name "Page".
 
 ```{r, results = F}
 dplyr::filter(data, name == "Lav")
@@ -118,9 +138,10 @@ dplyr::filter(data, name == "Lav")
 knitr::include_graphics('images/empty_tibble.jpg')
 ```
 
--   Now, we'll use the same code to assign only rows with your name to the data frame `data_clean`.
--   We want to be able to run more functions to clean the data. We can do this using the **Pipe (%\>%)** after data. `filter()` will then be run on `data` before assigning to `data_clean`.
-    -   Shortcut: `Shift + Ctrl/Cmd + M`
+- Now, we'll use the same code to assign only rows with your name to the data frame `data_clean`.
+- To make our code easier to read and add to, we're going to use something called a pipe (%>%).  Imagine it like a series of steps: the pipe helps you move from one step to the next, passing the data along as you go. 
+  - In the first step, `filter()` will be run on `data` before assigning the output to `data_clean`.
+    -   Shortcut for %>%: `Shift + Ctrl/Cmd + M`
 -   Copy and run the code below.
 -   To use something different, I check if it worked with `xtabs()` this time.
 
@@ -510,7 +531,7 @@ What if x is categorical?
 **a = bx**
 
 | -- | Continuous Predictor | Categorical Predictor |
-|------------------|-----------------------|:------------------------------|
+|------------------------|------------------------|:-----------------------|
 | x | a set of continuous data points | a set of binary/categorical data points |
 | a | the value of y when x is 0 | the value of y when x is the default level |
 | b | the change in y for one change in x | the change in y when x is the non-default level |
