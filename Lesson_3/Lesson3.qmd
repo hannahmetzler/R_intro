@@ -20,6 +20,7 @@ echo: true
 library(cowplot)
 library(ggplot2)
 library(dplyr)
+library(readr)
 library(svglite)
 ```
 
@@ -75,7 +76,7 @@ Create a script and save it in the `code` folder as `01_cleaning.R`.
 -   We only need the packages `dplyr` and `readr` for now (or the meta-package tidyverse)
 -   Shortcut to run a line of code from a script: `Ctrl/Strg/Cmd + Enter`
 
-```{r}
+```{r, eval=F}
 ## LOAD PACKAGES ####
 library(dplyr)
 library(readr)
@@ -142,7 +143,6 @@ knitr::include_graphics('images/empty_tibble.jpg')
 - To make our code easier to read and add to, we're going to use something called a pipe (%>%).  Imagine it like a series of steps: the pipe helps you move from one step to the next, passing the data along as you go. 
   - In the first step, `filter()` will be run on `data` before assigning the output to `data_clean`.
     -   Shortcut for %>%: `Shift + Ctrl/Cmd + M`
--   Copy and run the code below.
 -   To use something different, I check if it worked with `xtabs()` this time.
 
 ```{r}
@@ -200,7 +200,7 @@ knitr::include_graphics('images/source_environment.png')
 
 Now load all packages not yet loaded in the cleaning script. We need ggplot2 to make a figure.
 
-```{r}
+```{r, eval=F}
 ## LOAD PACKAGES ####
 library(ggplot2)
 ```
@@ -214,9 +214,9 @@ data_figs = data_clean
 
 ### Checking for normal distribution: Histogram
 
-To run a linear regression, our dependent variable needs to be normally distributed. A perfect normal distribution is symmetrical, for example, here 2 distributions with n = 1 million observations:
+To run a linear regression, our dependent variable needs to be normally distributed. A perfect normal distribution is symmetrical, for example, here are 2 distributions with n = 1 million observations:
 
-```{r, histogram nv,  echo=F, fig.height=3.5, warning=F}
+```{r, histogram nv,  echo=F, fig.height=3.5}
 data_normal = data.frame(narrow = rnorm(1000000, sd = 1.5), broad = rnorm(1000000, mean = 0, sd = 3.5))
 p1 = ggplot(data_normal, aes(x = narrow)) +
             geom_histogram(aes(y=..density..), bins = 40)+
@@ -256,7 +256,7 @@ plot_grid(p1, p2)
 
 Let's check the distribution of our dependent variable with a histogram:
 
-```{r, histogram names, fig.asp=1, fig.width=3}
+```{r, histogram names, fig.asp=1, fig.width=3, warning=T}
 ## MAKE FIGURES ####
 # Histogram of dependent variable (proportion of 'Page's)
 name.plot = ggplot(data_figs, aes(x = prop)) +
@@ -353,7 +353,7 @@ year.plot <- ggplot(data_figs, aes(x = year, y = prop_log10)) +
 year.plot
 ```
 
--   For detailed tutorials on different figures and design features, check out Chapter 3 of \[this R course\](https://psyteachr.github.io/reprores-v3/ggplot.html (de Bruine & Barr, 2022).
+-   For detailed tutorials on different figures and design features, check out Chapter 3 of [this R course](https://psyteachr.github.io/reprores-v3/ggplot.html) (de Bruine & Barr, 2022).
 
 -   To save the figure to a file, you can use `ggsave()` like in Lesson 2.
 

@@ -435,12 +435,13 @@ To do
 </div>
 <ul>
 <li>Now, we’ll use the same code to assign only rows with your name to the data frame <code>data_clean</code>.</li>
-<li>To make our code easier to read and add to, we’re going to use something called a pipe (%&gt;%). Imagine it like a series of steps: the pipe helps you move from one step to the next, passing the data along as you go.</li>
+<li>To make our code easier to read and add to, we’re going to use something called a pipe (%&gt;%). Imagine it like a series of steps: the pipe helps you move from one step to the next, passing the data along as you go.
+<ul>
 <li>In the first step, <code>filter()</code> will be run on <code>data</code> before assigning the output to <code>data_clean</code>.
 <ul>
 <li>Shortcut for %&gt;%: <code>Shift + Ctrl/Cmd + M</code></li>
 </ul></li>
-<li>Copy and run the code below.</li>
+</ul></li>
 <li>To use something different, I check if it worked with <code>xtabs()</code> this time.</li>
 </ul>
 <div class="cell">
@@ -533,7 +534,7 @@ To do
 </div>
 <section id="checking-for-normal-distribution-histogram" class="level3" data-number="6.1">
 <h3 data-number="6.1" class="anchored" data-anchor-id="checking-for-normal-distribution-histogram"><span class="header-section-number">6.1</span> Checking for normal distribution: Histogram</h3>
-<p>To run a linear regression, our dependent variable needs to be normally distributed. A perfect normal distribution is symmetrical, for example, here 2 distributions with n = 1 million observations:</p>
+<p>To run a linear regression, our dependent variable needs to be normally distributed. A perfect normal distribution is symmetrical, for example, here are 2 distributions with n = 1 million observations:</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -699,7 +700,7 @@ Exercise
 </div>
 </div>
 <ul>
-<li><p>For detailed tutorials on different figures and design features, check out Chapter 3 of [this R course](https://psyteachr.github.io/reprores-v3/ggplot.html (de Bruine &amp; Barr, 2022).</p></li>
+<li><p>For detailed tutorials on different figures and design features, check out Chapter 3 of <a href="https://psyteachr.github.io/reprores-v3/ggplot.html">this R course</a> (de Bruine &amp; Barr, 2022).</p></li>
 <li><p>To save the figure to a file, you can use <code>ggsave()</code> like in Lesson 2.</p></li>
 </ul>
 <div class="cell">
