@@ -386,10 +386,10 @@ geom_boxplot()
 sex.plot
 ```
 
--   You might want more explicit labels for "F" and "M" in a figure. We can update the code to create data_figs data frame at the top of our script.
+-   You might want more explicit labels for "F" and "M" in a figure. We can update the code to create the `data_figs` data frame at the top of our script.
 -   We'll use `mutate()` to change the names of the variable levels of the variable sex.
--   We'll use `factor()`, a function to make categorical variables with labels. The arguments we need are:
-    -   levels: "an optional vector of the unique values (as character strings) that x might have taken" (from Help)
+-   We'll use `factor()`, a function to make categorical variables with labels. The arguments we need are (from the help section):
+    -   levels: "an optional vector of the unique values (as character strings) that x might have taken" 
     -   labels: "an optional character vector of labels for the levels"
 -   What is a vector? A list of items of the same type (e.g., numbers or characters).
     -   If you want to assign numbers to a variable, you use a vector in R.
