@@ -2,7 +2,7 @@
 title: "Lesson 3: "
 subtitle: "Course website: https://hannahmetzler.eu/R_intro/"
 author: "Hannah Metzler"
-date: "February 13 2025"
+date: "February 13 & 20 2025"
 format: 
   html:
     theme: flatly
@@ -17,6 +17,8 @@ echo: true
 ---
 
 ```{r, load packages, echo=F}
+# Comment on the lesson plan: Sections up to 6 Figures script done in lesson 3, 7-10 done in lesson4 in the skills training 2025. 
+
 library(cowplot)
 library(ggplot2)
 library(dplyr)
@@ -460,7 +462,7 @@ sex.plot
 The figure script is done. Save it, commit to Git, and push to GitHub!
 :::
 
-# LBG Career Center Skills Training session 4 starts here. 
+End of lesson 3 LBG Career Center Skills Training.
 
 ## Math of linear regression
 
