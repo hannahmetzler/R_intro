@@ -460,6 +460,8 @@ sex.plot
 The figure script is done. Save it, commit to Git, and push to GitHub!
 :::
 
+# LBG Career Center Skills Training session 4 starts here. 
+
 ## Math of linear regression
 
 The basic equation of linear regression is:
