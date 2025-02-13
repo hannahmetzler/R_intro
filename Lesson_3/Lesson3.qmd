@@ -40,7 +40,7 @@ library(svglite)
     2.  Copy the SSH link.
 2.  Clone the remote repository via the Terminal (quicker) or the Rstudio interface:
     1.  Terminal: navigate to your folder for this R course using `cd`. Type `git clone` and paste your SSH link.
-    2.  Interface: Create a new project & choose `Version Control`, then `Git`. Under `Clon Git Repository`, enter your SSH link.
+    2.  Interface: Create a new project & choose `Version Control`, then `Git`. Under `Clone Git Repository`, enter your SSH link.
 3.  Then organize your repository:
     1.  In the now local folder of the repository, create sub folders (e.g. “data”, “figures”, “code”, “write_up”).
     2.  Put the [data file](https://github.com/hannahmetzler/R_intro_lesson3/blob/main/data/lesson2_data_babynames.txt) for this lesson in your “data” folder.
