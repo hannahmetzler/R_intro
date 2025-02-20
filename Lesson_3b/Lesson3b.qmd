@@ -9,7 +9,7 @@ format:
     toc: true # generate a table of content
     number-sections: true
     df-print: kable
-editor: visual
+editor: source
 cache: true
 execute: 
   warning: false
@@ -39,8 +39,7 @@ Below, we read in data from Austria, make it comparable to the US data set, and 
 
 Continue working in your cleaning script from lesson 3, in the \# READ DATA \#### section.
 
--   To read the Austrian data, try the function `csv()`.
--   Add this after the lines that read in the data from the USA.
+-   To read the Austrian data, try the function `read_csv()`. Add after the lines that read in the data from the USA.
 
 ```{r}
 data_aut <- readr::read_csv('data/OGDEXT_VORNAMEN_1.csv')
@@ -61,7 +60,7 @@ head(data_aut)
 
 ### Data from the US
 
-Here, I load the baby names data set, a default package included in the library "babynames". To run the code below, you first need to install the package, and then load it by adding `library(babynames)` in your section for loading packages. This dataset, as opposed to the smaller one we used in lesson 3, includes all given names in the US, not just the ones from our course participants. Assign the dataset to `data_usa`.
+Here, I load the baby names data set, a default package included in the library "babynames". To run the code below, you first need to install the package (via the console), and then load it by adding `library(babynames)` in your section for loading packages. This dataset, as opposed to the smaller one we used in lesson 3, includes all given names in the US, not just the ones from our course participants. Assign the dataset to `data_usa`.
 
 ```{r, read in US babynames data}
 # load the dataset
@@ -74,13 +73,11 @@ data_usa = babynames
 
 To get an overview of this new data set, you could use any of the following functions:
 
--   You know `glimpse()` from lesson 3.
-
 ```{r}
 dplyr::glimpse(data_aut)
 ```
 
--   summary() shows us that the earliest year in the data is 1984, the latest one 2022.
+-   `summary()` shows us that the earliest year in the data is 1984, the latest one 2022.
     -   It also shows us that the column "Geschlecht" (sex) is not yet coded as a categorical variable.
 
 ```{r}
@@ -521,7 +518,7 @@ Sometimes you need your data in a wide format, that is, multiple columns for the
 -   Install the package, and load the library at the start of your statistics script.
 -   Arguments of pivot_wider():
     -   the data frame
-    -   id_cols: the column or columns that identify a single unique row in your data frame. This could by you participant ID. Here, it is each name per year.
+    -   id_cols: the column or columns that identify a single unique row in your data frame. This could be you participant ID. Here, it is each name per year.
     -   names_from: the variables for which you want to create new columns (or column/variable names)
     -   values_from: the value/variable you want to fill these columns with, here proportion (log transformed)
 -   Write the following code in your section for organizing data in the statistics script.
