@@ -158,8 +158,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>Continue working in your cleaning script from lesson 3, in the # READ DATA #### section.</p>
 <ul>
-<li>To read the Austrian data, try the function <code>csv()</code>.</li>
-<li>Add this after the lines that read in the data from the USA.</li>
+<li>To read the Austrian data, try the function <code>read_csv()</code>. Add after the lines that read in the data from the USA.</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>data_aut <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">'data/OGDEXT_VORNAMEN_1.csv'</span>)</span>
@@ -279,7 +278,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="data-from-the-us" class="level3" data-number="2.2">
 <h3 data-number="2.2" class="anchored" data-anchor-id="data-from-the-us"><span class="header-section-number">2.2</span> Data from the US</h3>
-<p>Here, I load the baby names data set, a default package included in the library “babynames”. To run the code below, you first need to install the package, and then load it by adding <code>library(babynames)</code> in your section for loading packages. This dataset, as opposed to the smaller one we used in lesson 3, includes all given names in the US, not just the ones from our course participants. Assign the dataset to <code>data_usa</code>.</p>
+<p>Here, I load the baby names data set, a default package included in the library “babynames”. To run the code below, you first need to install the package (via the console), and then load it by adding <code>library(babynames)</code> in your section for loading packages. This dataset, as opposed to the smaller one we used in lesson 3, includes all given names in the US, not just the ones from our course participants. Assign the dataset to <code>data_usa</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load the dataset</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(babynames)</span>
@@ -291,9 +290,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="get-an-overview-of-the-dataset" class="level2" data-number="3">
 <h2 data-number="3" class="anchored" data-anchor-id="get-an-overview-of-the-dataset"><span class="header-section-number">3</span> Get an overview of the dataset</h2>
 <p>To get an overview of this new data set, you could use any of the following functions:</p>
-<ul>
-<li>You know <code>glimpse()</code> from lesson 3.</li>
-</ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(data_aut)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -307,7 +303,7 @@ $ `F-ANZAHL_LGEB`          &lt;dbl&gt; 4, 1, 2, 2, 1, 3, 2, 1, 3, 1, 1, 1, 1, 1,
 </div>
 </div>
 <ul>
-<li>summary() shows us that the earliest year in the data is 1984, the latest one 2022.
+<li><code>summary()</code> shows us that the earliest year in the data is 1984, the latest one 2022.
 <ul>
 <li>It also shows us that the column “Geschlecht” (sex) is not yet coded as a categorical variable.</li>
 </ul></li>
@@ -2431,7 +2427,7 @@ $`Levene's Test for Homogeneity of Variance`
 <li>Arguments of pivot_wider():
 <ul>
 <li>the data frame</li>
-<li>id_cols: the column or columns that identify a single unique row in your data frame. This could by you participant ID. Here, it is each name per year.</li>
+<li>id_cols: the column or columns that identify a single unique row in your data frame. This could be you participant ID. Here, it is each name per year.</li>
 <li>names_from: the variables for which you want to create new columns (or column/variable names)</li>
 <li>values_from: the value/variable you want to fill these columns with, here proportion (log transformed)</li>
 </ul></li>
