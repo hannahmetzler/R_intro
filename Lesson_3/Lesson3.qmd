@@ -468,7 +468,7 @@ End of lesson 3 LBG Career Center Skills Training.
 
 The basic equation of linear regression is:
 
-**y~i~ = a + b~i~x + e~i~**
+**y~i~ = a + bx~i~ + e~i~**
 
 -   y~i~ = a specific y value (dependent variable)
 -   a = intercept (where the regression line crosses the y-axis, y when x = 0)
