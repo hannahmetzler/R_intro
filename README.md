@@ -38,7 +38,7 @@ As an example for what you can do with Quarto files, here is the code I used to 
 - [Lesson 1 Quarto file](/Lesson_1/Lesson1.qmd))
 - [Lesson 2 Quarto file](/Lesson_2/Lesson2.qmd)
 - [Lesson 3 Quarto file](/Lesson_3/Lesson3.qmd)
-- [Lesson 4 Quarto file](/Lesson_3b/Lesson3b.qmd))
+- [Lesson 3 extension Quarto file](/Lesson_3b/Lesson3b.qmd))
 
 ## License
 
